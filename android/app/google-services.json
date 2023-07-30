@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "424769050957",
+    "project_id": "isp-management-7f59d",
+    "storage_bucket": "isp-management-7f59d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:424769050957:android:d77598413e2aa83930ff04",
+        "android_client_info": {
+          "package_name": "com.example.dnet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "424769050957-149apq0vsmrsrd0ak001qqspjtpts7g4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAYPAAXNVodA9W8kuXUhCzNe8-ewJ0lXc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "424769050957-149apq0vsmrsrd0ak001qqspjtpts7g4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
