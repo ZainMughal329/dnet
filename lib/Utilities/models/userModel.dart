@@ -5,7 +5,8 @@ class UserModel {
   final String email;
   final String phoneNo;
   final String username;
-  final String photoUrl;
+  final DateTime pkgStartDate;
+  final DateTime pkgEndDate;
   final String pkgType;
   final String password;
 
@@ -14,7 +15,8 @@ class UserModel {
         required this.email,
         required this.phoneNo,
         required this.username,
-        required this.photoUrl,
+        required this.pkgStartDate,
+        required this.pkgEndDate,
         required this.pkgType,
         required this.password});
 
@@ -23,7 +25,8 @@ class UserModel {
       'Email': email,
       'Phone': phoneNo,
       'UserName' : username,
-      'profile' : photoUrl,
+      'pkgStartDate' : pkgStartDate,
+      'pkgEndDate' : pkgEndDate,
       'pkgType' : pkgType,
       'Password': password,
     };
@@ -37,7 +40,8 @@ class UserModel {
         email: data['Email'],
         phoneNo: data['Phone'],
         username: data['UserName'],
-        photoUrl: data['profile'],
+        pkgStartDate: data['pkgStartDate'],
+        pkgEndDate: data['pkgEndDate'],
         pkgType: data['pkgType'],
         password: data['Password']);
   }

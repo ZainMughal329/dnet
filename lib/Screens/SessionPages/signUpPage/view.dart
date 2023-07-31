@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../loginPage/view.dart';
 import 'controller.dart';
@@ -73,7 +74,6 @@ class SignUpScreen extends GetView<SignInController> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-
               SizedBox(height: 50.0),
               TextFormField(
                 controller: controller.state.nameController,
@@ -93,7 +93,7 @@ class SignUpScreen extends GetView<SignInController> {
               ),
               SizedBox(height: 16.0),
               TextFormField(
-                controller: controller.state.addressController,
+                controller: controller.state.phoneController,
                 decoration: InputDecoration(labelText: 'Phone Number'),
                 keyboardType: TextInputType.number,
               ),
@@ -102,6 +102,56 @@ class SignUpScreen extends GetView<SignInController> {
                 controller: controller.state.addressController,
                 decoration: InputDecoration(labelText: 'Address'),
                 keyboardType: TextInputType.text,
+              ),
+              SizedBox(height: 16.0),
+              Row(
+                children: [
+                  Expanded(
+                    child: GetBuilder<SignInController>(builder: (con) {
+                      return TextFormField(
+                        controller: controller.state.startDateController,
+                        decoration: InputDecoration(
+                            label: Text('Start date'),
+                            // labelText: 'Start Date',
+                            hintText: DateFormat.yMMMMd().format(
+                              controller.state.selectedStartDate,
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(Icons.calendar_today_outlined),
+                              onPressed: () {
+                                print('Hi there');
+                                con.getDateFromUser(context);
+                              },
+                            )),
+                        keyboardType: TextInputType.datetime,
+                        readOnly: true,
+                      );
+                    }),
+                  ),
+                  SizedBox(width: 16.0,),
+                  Expanded(
+                    child: GetBuilder<SignInController>(builder: (con) {
+                      return TextFormField(
+                        controller: controller.state.endDateController,
+                        decoration: InputDecoration(
+                            label: Text('End Date'),
+                            // labelText: 'Start Date',
+                            hintText: DateFormat.yMMMMd().format(
+                              controller.state.selectedEndDate,
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(Icons.calendar_today_outlined),
+                              onPressed: () {
+                                print('Hi there');
+                                con.getEndDateFromUser(context);
+                              },
+                            )),
+                        keyboardType: TextInputType.datetime,
+                        readOnly: true,
+                      );
+                    }),
+                  ),
+                ],
               ),
               SizedBox(height: 16.0),
               Row(
@@ -121,7 +171,8 @@ class SignUpScreen extends GetView<SignInController> {
               Obx(() {
                 return ElevatedButton(
                   onPressed: () {
-                    controller.handleSignIn(controller.state.emailController.text,
+                    controller.handleSignIn(
+                        controller.state.emailController.text,
                         controller.state.passController.text);
                   },
                   child: controller.state.loading.value == true

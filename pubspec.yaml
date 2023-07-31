@@ -39,6 +39,7 @@ dependencies:
   firebase_core: ^2.15.0
   cloud_firestore:
   get:
+  intl:
   firebase_auth:
   fluttertoast:
   shared_preferences:
