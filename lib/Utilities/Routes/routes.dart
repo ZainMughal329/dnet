@@ -1,3 +1,4 @@
+import 'package:d_net/Screens/SessionPages/SplashScreen/index.dart';
 import 'package:d_net/Screens/UserScreens/homeScreen/bindings.dart';
 import 'package:d_net/Screens/admin/bindings.dart';
 import 'package:d_net/Screens/admin/view.dart';
@@ -31,6 +32,11 @@ class AppPages {
       name: RoutesNames.adminScreen,
       page: () => AdminView(),
       binding: AdminBindings(),
+    ),
+    GetPage(
+      name: RoutesNames.splashScreen,
+      page: () => SplashScreen(),
+      binding: SplashBindings(),
     ),
   ];
 }

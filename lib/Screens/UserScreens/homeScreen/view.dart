@@ -10,6 +10,11 @@ class UserView extends GetView<UserController> {
     return Scaffold(
       appBar: AppBar(
         title: Text('UserView'),
+        actions: [
+          IconButton(onPressed: (){
+            controller.signOut();
+          }, icon: Icon(Icons.logout))
+        ],
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -5,53 +7,142 @@ import '../loginPage/view.dart';
 import 'controller.dart';
 
 class SignUpScreen extends GetView<SignInController> {
+  Widget _buildPackageList() {
+    return Obx(
+      () => Expanded(
+        flex: 0,
+        child: DropdownButton(
+          iconEnabledColor: Colors.green,
+          // iconSize: ,
+          hint: controller.state.package.value == ""
+              ? Text("Select Package")
+              : Text(controller.state.package.value),
+          items: [
+            DropdownMenuItem(
+              child: Text("2-MB/s"),
+              value: "2",
+            ),
+            DropdownMenuItem(
+              child: Text("4-MB/s"),
+              value: "4",
+            ),
+            DropdownMenuItem(
+              child: Text("6-MB/s"),
+              value: "6",
+            ),
+            DropdownMenuItem(
+              child: Text("8-MB/s"),
+              value: "8",
+            ),
+            DropdownMenuItem(
+              child: Text("10-MB/s"),
+              value: "10",
+            ),
+            DropdownMenuItem(
+              child: Text("12-MB/s"),
+              value: "12",
+            ),
+            DropdownMenuItem(
+              child: Text("16-MB/s"),
+              value: "16",
+            ),
+            DropdownMenuItem(
+              child: Text("24-MB/s"),
+              value: "24",
+            ),
+          ],
+          onChanged: (String? value) {
+            controller.state.package.value = value!;
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text('Sign Up'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextFormField(
-              controller: controller.state.nameController,
-              decoration: InputDecoration(labelText: 'Full Name'),
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: controller.state.emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-              keyboardType: TextInputType.emailAddress,
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: controller.state.passController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: () {
-                controller.handleSignIn(controller.state.emailController.text,
-                    controller.state.passController.text);
-              },
-              child: Text('Sign Up'),
-            ),
-            SizedBox(height: 16.0),
-            TextButton(
-              onPressed: () {
-                Get.to(
-                  () => LoginScreen(),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+
+              SizedBox(height: 50.0),
+              TextFormField(
+                controller: controller.state.nameController,
+                decoration: InputDecoration(labelText: 'Full Name'),
+              ),
+              SizedBox(height: 16.0),
+              TextFormField(
+                controller: controller.state.emailController,
+                decoration: InputDecoration(labelText: 'Email'),
+                keyboardType: TextInputType.emailAddress,
+              ),
+              SizedBox(height: 16.0),
+              TextFormField(
+                controller: controller.state.passController,
+                decoration: InputDecoration(labelText: 'Password'),
+                obscureText: true,
+              ),
+              SizedBox(height: 16.0),
+              TextFormField(
+                controller: controller.state.addressController,
+                decoration: InputDecoration(labelText: 'Phone Number'),
+                keyboardType: TextInputType.number,
+              ),
+              SizedBox(height: 16.0),
+              TextFormField(
+                controller: controller.state.addressController,
+                decoration: InputDecoration(labelText: 'Address'),
+                keyboardType: TextInputType.text,
+              ),
+              SizedBox(height: 16.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Package",
+                    style: TextStyle(
+                        // decoration: TextDecoration.underline,
+                        fontSize: 16,
+                        color: Colors.grey.shade700),
+                  ),
+                  _buildPackageList(),
+                ],
+              ),
+              SizedBox(height: 24.0),
+              Obx(() {
+                return ElevatedButton(
+                  onPressed: () {
+                    controller.handleSignIn(controller.state.emailController.text,
+                        controller.state.passController.text);
+                  },
+                  child: controller.state.loading.value == true
+                      ? Center(
+                          child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ))
+                      : Center(child: Text('Sign Up')),
                 );
-              },
-              child: Text('Already have an account? Log In'),
-            ),
-          ],
+              }),
+              SizedBox(height: 16.0),
+              TextButton(
+                onPressed: () {
+                  Get.to(
+                    () => LoginScreen(),
+                  );
+                },
+                child: Text('Already have an account? Log In'),
+              ),
+            ],
+          ),
         ),
       ),
     );

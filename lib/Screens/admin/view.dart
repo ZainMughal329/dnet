@@ -10,6 +10,11 @@ class AdminView extends GetView<AdminController> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Admin Page'),
+        actions: [
+          IconButton(onPressed: (){
+            controller.signOut();
+          }, icon: Icon(Icons.logout))
+        ],
       ),
     );
   }

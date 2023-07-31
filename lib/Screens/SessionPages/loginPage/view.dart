@@ -26,22 +26,28 @@ class LoginScreen extends GetView<loginController> {
             TextFormField(
               controller: controller.state.passController,
               decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
+              obscureText: false,
             ),
             SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: () {
-                if (controller.state.emailController.text ==
-                        "rehandreamnet@gmail.com" &&
-                    controller.state.passController.text == "rehan@123") {
-                  Get.toNamed(RoutesNames.adminScreen);
-                } else {
-                  controller.handleLogin(controller.state.emailController.text,
-                      controller.state.passController.text);
-                }
-              },
-              child: Text('Log In'),
-            ),
+            Obx((){
+              return ElevatedButton(
+                onPressed: () {
+                  if (controller.state.emailController.text ==
+                      "rehandreamnet@gmail.com" &&
+                      controller.state.passController.text == "rehan@123") {
+                    Get.offAllNamed(RoutesNames.adminScreen);
+                  } else {
+                    controller.handleLogin(controller.state.emailController.text,
+                        controller.state.passController.text);
+                  }
+                },
+                child: controller.state.loading.value==true ? Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ),
+                ) : Center(child: Text('Log In')),
+              );
+            }),
             SizedBox(height: 16.0),
             TextButton(
               onPressed: () {
