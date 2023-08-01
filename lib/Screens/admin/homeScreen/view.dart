@@ -1,5 +1,6 @@
 import 'dart:async';
 
+// import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -33,17 +34,36 @@ class AdminView extends GetView<AdminController> {
             height: 100,
             color: Colors.blueGrey,
             child: Center(
-              child: TypewriterAnimatedTextKit(
-                text: ['Dream Net'],
-                speed: Duration(milliseconds: 300),
-                pause: Duration(milliseconds: 400),
+              child: AnimatedTextKit(
+                animatedTexts: [
+                  TypewriterAnimatedText(
+                    "Dream Net",
+                  speed: Duration(milliseconds: 500),
                 textStyle: TextStyle(
-                  fontSize: 32.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              ),
+                      fontSize: 32.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    cursor: '_',
+                    curve: Curves.linear,
+                  ),
+                ],
+
+
+
+              )
+              // TypewriterAnimatedTextKit(
+              //   text: ['Dream Net'],
+              //   speed: Duration(milliseconds: 300),
+              //   pause: Duration(milliseconds: 400),
+              //   textStyle: TextStyle(
+              //     fontSize: 32.0,
+              //     fontWeight: FontWeight.bold,
+              //     color: Colors.white,
+              //   ),
+              //   textAlign: TextAlign.center,
+              // )
+              ,
             ),
           ),
           StreamBuilder<QuerySnapshot>(
