@@ -1,7 +1,9 @@
 import 'package:d_net/Screens/SessionPages/SplashScreen/index.dart';
 import 'package:d_net/Screens/UserScreens/homeScreen/bindings.dart';
-import 'package:d_net/Screens/admin/bindings.dart';
-import 'package:d_net/Screens/admin/view.dart';
+import 'package:d_net/Screens/admin/homeScreen/bindings.dart';
+import 'package:d_net/Screens/admin/homeScreen/view.dart';
+import 'package:d_net/Screens/admin/userDetails/index.dart';
+// import 'package:d_net/Screens/admin/view.dart';
 import 'package:d_net/Utilities/Routes/routesNames.dart';
 import 'package:get/get.dart';
 
@@ -37,6 +39,11 @@ class AppPages {
       name: RoutesNames.splashScreen,
       page: () => SplashScreen(),
       binding: SplashBindings(),
+    ),
+    GetPage(
+      name: RoutesNames.userDetailScreen,
+      page: () => userDetailsScreen(),
+      binding: userDetailsBindings(),
     ),
   ];
 }

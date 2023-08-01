@@ -39,7 +39,11 @@ class UserView extends GetView<UserController> {
               child: Column(
                 children: [
                   Container(
-                    height: 390,
+                    // height: 300,
+                    child: Icon(Icons.person_2,size: 200,color: Colors.blueGrey.shade600,),
+                  ),
+                  Container(
+                    // height: 500,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.blueGrey,
@@ -61,7 +65,7 @@ class UserView extends GetView<UserController> {
                             ),
                           ),
                         ),
-                        Divider(color: Colors.white, height: 5),
+                        Divider(color: Colors.grey, height: 5),
                         Container(
                           height: 50,
                           child: ListTile(
@@ -87,6 +91,21 @@ class UserView extends GetView<UserController> {
                             ),
                             trailing: Text(
                               snapshot.data!['Phone'].toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        Divider(color: Colors.grey, height: 5),
+                        Container(
+                          height: 50,
+                          child: ListTile(
+                            onTap: () {},
+                            title: Text(
+                              'Address',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            trailing: Text(
+                              snapshot.data!['address'].toString(),
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
@@ -160,6 +179,10 @@ class UserView extends GetView<UserController> {
                               ),
                             ),
                           ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Divider(color: Colors.grey, height: 5),
                         ),
                         // Divider(color: Colors.grey,),
                       ],

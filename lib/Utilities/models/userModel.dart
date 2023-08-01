@@ -9,6 +9,7 @@ class UserModel {
   final String pkgEndDate;
   final String pkgType;
   final String password;
+  final String address;
 
   UserModel(
       {this.id,
@@ -18,7 +19,9 @@ class UserModel {
         required this.pkgStartDate,
         required this.pkgEndDate,
         required this.pkgType,
-        required this.password});
+        required this.password,
+      required this.address,
+      });
 
   toJson() {
     return {
@@ -29,6 +32,7 @@ class UserModel {
       'pkgEndDate' : pkgEndDate,
       'pkgType' : pkgType,
       'Password': password,
+      'address' : address,
     };
   }
 
@@ -43,6 +47,8 @@ class UserModel {
         pkgStartDate: data['pkgStartDate'],
         pkgEndDate: data['pkgEndDate'],
         pkgType: data['pkgType'],
+        address: data['address'],
         password: data['Password']);
+
   }
 }

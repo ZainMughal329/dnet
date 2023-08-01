@@ -37,7 +37,9 @@ class SignInController extends GetxController {
                       pkgStartDate: state.selectedStartDate.toString(),
                       pkgEndDate: state.selectedEndDate.toString(),
                       pkgType: state.package.toString(),
-                      password: state.passController.text.toString())
+                      password: state.passController.text.toString(),
+              address: state.addressController.text.toString(),
+              )
                   .toJson(),
             );
         Utils.showToast('Account Created');
