@@ -34,8 +34,8 @@ class SignInController extends GetxController {
                       email: state.emailController.text.toString(),
                       phoneNo: state.phoneController.text.toString(),
                       username: state.nameController.text.toString(),
-                      pkgStartDate: state.selectedStartDate,
-                      pkgEndDate: state.selectedEndDate,
+                      pkgStartDate: state.selectedStartDate.toString(),
+                      pkgEndDate: state.selectedEndDate.toString(),
                       pkgType: state.package.toString(),
                       password: state.passController.text.toString())
                   .toJson(),

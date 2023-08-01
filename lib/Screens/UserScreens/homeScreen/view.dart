@@ -12,6 +12,7 @@ class UserView extends GetView<UserController> {
     return Scaffold(
       appBar: AppBar(
         title: Text('UserView'),
+        backgroundColor: Colors.blueGrey,
         actions: [
           IconButton(
               onPressed: () {
@@ -32,15 +33,16 @@ class UserView extends GetView<UserController> {
             }
             // DateTime startDate = snapshot.data!['pkgStartDate'];
 
+
             return Container(
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
                   Container(
-                    height: 330,
+                    height: 390,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.black,
+                      color: Colors.blueGrey,
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Column(
@@ -95,11 +97,15 @@ class UserView extends GetView<UserController> {
                           child: ListTile(
                             onTap: () {},
                             title: Text(
-                              'Start Date',
+                              'Start DateTime',
                               style: TextStyle(color: Colors.white),
                             ),
                             trailing: Text(
-                              snapshot.data!['pkgStartDate'].toString(),
+                              DateFormat.yMMMd().add_jm().format(
+                                    DateTime.parse(
+                                      snapshot.data!['pkgStartDate'].toString(),
+                                    ),
+                                  ),
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
@@ -110,11 +116,15 @@ class UserView extends GetView<UserController> {
                           child: ListTile(
                             onTap: () {},
                             title: Text(
-                              'End Date',
+                              'End DateTime',
                               style: TextStyle(color: Colors.white),
                             ),
                             trailing: Text(
-                              snapshot.data!['pkgEndDate'].toString(),
+                              DateFormat.yMMMd().add_jm().format(
+                                    DateTime.parse(
+                                      snapshot.data!['pkgEndDate'].toString(),
+                                    ),
+                                  ),
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
@@ -131,6 +141,23 @@ class UserView extends GetView<UserController> {
                             trailing: Text(
                               snapshot.data!['pkgType'].toString() + ' Mbps',
                               style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        Divider(color: Colors.grey, height: 5),
+                        Container(
+                          height: 50,
+                          child: ListTile(
+                            onTap: () {},
+                            title: Text(
+                              'Remaining days',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            trailing: Obx(
+                              () => Text(
+                                'Remaining Days: ${controller.state.remainingDays.value}',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ),

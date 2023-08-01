@@ -5,8 +5,8 @@ class UserModel {
   final String email;
   final String phoneNo;
   final String username;
-  final DateTime pkgStartDate;
-  final DateTime pkgEndDate;
+  final String pkgStartDate;
+  final String pkgEndDate;
   final String pkgType;
   final String password;
 
