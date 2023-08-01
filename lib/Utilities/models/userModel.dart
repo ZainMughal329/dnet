@@ -25,6 +25,7 @@ class UserModel {
 
   toJson() {
     return {
+      'id' : id,
       'Email': email,
       'Phone': phoneNo,
       'UserName' : username,

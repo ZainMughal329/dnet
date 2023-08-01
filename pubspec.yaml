@@ -45,6 +45,7 @@ dependencies:
   shared_preferences:
   firebase_storage:
   image_picker:
+  animated_text_kit:
 
 dev_dependencies:
   flutter_test:
