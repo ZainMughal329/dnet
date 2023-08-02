@@ -144,9 +144,9 @@ class UpdateScreen extends GetView<AdminController> {
                                     controller.state.startDateController,
                                 decoration: InputDecoration(
                                     // label: Text('Start date'),
-                                    // labelText: 'Start Date',
+                                    labelText: 'Start Date',
                                     hintText: DateFormat.yMMMMd().format(
-                                      controller.state.selectedStartDate,
+                                      DateTime.parse(startDate.text.toString()),
                                     ),
                                     suffixIcon: IconButton(
                                       icon: Icon(Icons.calendar_today_outlined),
@@ -168,11 +168,11 @@ class UpdateScreen extends GetView<AdminController> {
                               return TextFormField(
                                 controller: controller.state.endDateController,
                                 decoration: InputDecoration(
-                                    // label: Text('End Date'),
+                                    label: Text('End Date'),
                                     // labelText: 'Start Date',
                                     hintText: DateFormat.yMMMMd().format(
-                                      controller.state.selectedEndDate,
-                                    ),
+                                        DateTime.parse(
+                                            endDate.text.toString())),
                                     suffixIcon: IconButton(
                                       icon: Icon(Icons.calendar_today_outlined),
                                       onPressed: () {
@@ -207,12 +207,14 @@ class UpdateScreen extends GetView<AdminController> {
                         child: ElevatedButton(
                           onPressed: () async {
                             var userData = UserModel(
-                              id: id,
+                                id: id,
                                 email: email.text.trim(),
                                 phoneNo: phone.text.trim(),
                                 username: name.text.trim(),
-                                pkgStartDate: controller.state.selectedStartDate.toString(),
-                                pkgEndDate: controller.state.selectedEndDate.toString(),
+                                pkgStartDate: controller.state.selectedStartDate
+                                    .toString(),
+                                pkgEndDate:
+                                    controller.state.selectedEndDate.toString(),
                                 pkgType: controller.state.package.value,
                                 password: pass.text.trim(),
                                 address: add.text.trim());

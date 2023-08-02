@@ -1,0 +1,80 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:d_net/Screens/admin/homeScreen/controller.dart';
+import 'package:d_net/Screens/admin/homeScreen/update.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class AllUsers extends GetView<AdminController> {
+  const AllUsers({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+      body: SafeArea(
+          child: Column(
+        children: [
+          StreamBuilder<QuerySnapshot>(
+              stream: controller.state.dbref,
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  print('Waiting..');
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (snapshot.hasData) {
+                  print(snapshot.data!.docs.length);
+                }
+                print("snapshot.data");
+                return Expanded(
+                  child: ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 2, vertical: 1),
+                          child: GestureDetector(
+                            onTap: () {
+                              print('object');
+                              print('id is: ' +
+                                  snapshot.data!.docs[index].id.toString());
+                              Get.to(() => UpdateScreen(
+                                    id: snapshot.data!.docs[index].id
+                                        .toString(),
+                                  ));
+                            },
+                            child: ListTile(
+                              tileColor: Colors.blueGrey.shade300,
+                              leading: CircleAvatar(
+                                  backgroundColor: Colors.blueGrey.shade200,
+                                  child: Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                  )),
+                              trailing: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Icon(Icons.speed),
+                                  Text(snapshot.data!.docs[index]['pkgType']
+                                          .toString() +
+                                      " MB/s")
+                                ],
+                              ),
+                              title: Text(snapshot.data!.docs[index]['UserName']
+                                  .toString()),
+                              subtitle: Text(snapshot
+                                  .data!.docs[index]['address']
+                                  .toString()),
+                            ),
+                          ),
+                        );
+                      }),
+                );
+              }),
+        ],
+      )),
+    );
+  }
+}

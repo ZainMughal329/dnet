@@ -16,7 +16,23 @@ import '../../../Utilities/ReusableComponents/utilis.dart';
 // import '../../Utilities/ReusableComponents/utilis.dart';
 // import '../../Utilities/Routes/routesNames.dart';
 
-class AdminController extends GetxController {
+class AdminController extends GetxController with GetTickerProviderStateMixin {
+
+  late TabController tabController;
+
+  @override
+  void onInit() {
+    super.onInit();
+    tabController = TabController(length: 5, vsync: this);
+    // calculateRemainingDays();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    tabController.dispose();
+    print('object');
+  }
   final state = AdminState();
 
   AdminController();
@@ -44,6 +60,28 @@ class AdminController extends GetxController {
     } catch (e) {
       Utils.showToast("Error Occurred : " + e.toString());
     }
+  }
+
+
+  int calculateRemainingDays() {
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(auth.currentUser!.uid.toString())
+        .snapshots()
+        .listen((doc) {
+      state.startDateTime.value = DateTime.parse(doc['pkgStartDate'].toString());
+      state.endDateTime.value = DateTime.parse(doc['pkgEndDate'].toString());
+
+    });
+    // Calculate the difference between endDateTime and startDateTime
+    Duration difference = state.endDateTime.value.difference(state.startDateTime.value);
+
+    // Get the number of remaining days from the difference
+    int remainingDays = difference.inDays;
+
+    // Return the remaining days
+    return remainingDays;
   }
 
   dynamic getUserData() {

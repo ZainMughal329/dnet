@@ -3,12 +3,18 @@ import 'dart:async';
 // import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:d_net/Screens/admin/homeScreen/all_users.dart';
 
 // import 'package:d_net/Screens/admin/controller.dart';
 import 'package:d_net/Screens/admin/homeScreen/controller.dart';
+import 'package:d_net/Screens/admin/homeScreen/expired_users.dart';
+import 'package:d_net/Screens/admin/homeScreen/three_days.dart';
+import 'package:d_net/Screens/admin/homeScreen/two_days.dart';
 import 'package:d_net/Screens/admin/homeScreen/update.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../Utilities/ReusableComponents/tab_bar_settings.dart';
 
 class AdminView extends GetView<AdminController> {
   AdminView({Key? key}) : super(key: key);
@@ -18,118 +24,99 @@ class AdminView extends GetView<AdminController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Page'),
+        title: Center(
+          child: AnimatedTextKit(
+            animatedTexts: [
+              TypewriterAnimatedText(
+                "Dream Net",
+                speed: Duration(milliseconds: 500),
+                textStyle: TextStyle(
+                  fontSize: 32.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+                cursor: '_',
+                curve: Curves.linear,
+              ),
+            ],
+          ),
+        ),
+        backgroundColor: Colors.blueGrey,
+        // bottom: TabBar(
+        //   controller: controller.tabController,
+        //   tabs: [
+        //     Tab(text: 'All users'),
+        //     Tab(text: 'Expired users'),
+        //     Tab(text: '1 day left'),
+        //     Tab(text: '2 days left'),
+        //     Tab(text: '3 days left'),
+        //   ],
+        // ),
         actions: [
           IconButton(
               onPressed: () {
-
                 controller.signOut();
               },
               icon: Icon(Icons.logout))
         ],
       ),
-      body: SafeArea(
-          child: Column(
-        children: [
-          Container(
-            height: 100,
-            color: Colors.blueGrey,
-            child: Center(
-              child: AnimatedTextKit(
-                isRepeatingAnimation: true,
-                repeatForever: true,
-                animatedTexts: [
-                  TypewriterAnimatedText(
-                    "Dream Net",
-                  speed: Duration(milliseconds: 200),
-                textStyle: TextStyle(
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                    cursor: '_',
-                    curve: Curves.linear,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: TabBar(
+                  isScrollable: true,
+                  labelPadding: EdgeInsets.only(right: 20, left: 20),
+                  indicator: CircleTabIndicator(color: Colors.black, radius: 4),
+                  controller: controller.tabController,
+                  labelColor: Colors.black,
+                  unselectedLabelColor: Colors.grey,
+                  tabs: [
+                    Tab(text: 'All users'),
+                    Tab(text: 'Expired users'),
+                    Tab(text: '1 day left'),
+                    Tab(text: '2 days left'),
+                    Tab(text: '3 days left'),
+
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: 590,
+              width: double.infinity,
+              child: TabBarView(
+                controller: controller.tabController,
+                children: [
+                  // Get.offAndToNamed(page)
+                  AllUsers(),
+                  ExpiredUsers(),
+                  OneDay(),
+                  TwoDays(),
+                  Center(
+                    child: Text('Three days left'),
                   ),
                 ],
-
-
-
-              )
-              // TypewriterAnimatedTextKit(
-              //   text: ['Dream Net'],
-              //   speed: Duration(milliseconds: 300),
-              //   pause: Duration(milliseconds: 400),
-              //   textStyle: TextStyle(
-              //     fontSize: 32.0,
-              //     fontWeight: FontWeight.bold,
-              //     color: Colors.white,
-              //   ),
-              //   textAlign: TextAlign.center,
-              // )
-              ,
+              ),
             ),
-          ),
-          StreamBuilder<QuerySnapshot>(
-              stream: controller.state.dbref,
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  print('Waiting..');
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                if (snapshot.hasData) {
-                  print(snapshot.data!.docs.length);
-                }
-                print("snapshot.data");
-                return Expanded(
-                  child: ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 2, vertical: 1),
-                          child: GestureDetector(
-                            onTap: () {
-                              print('object');
-                              print('id is: ' +
-                                  snapshot.data!.docs[index].id.toString());
-                              Get.to(() => UpdateScreen(
-                                    id: snapshot.data!.docs[index].id
-                                        .toString(),
-                                  ));
-                            },
-                            child: ListTile(
-                              tileColor: Colors.blueGrey.shade300,
-                              leading: CircleAvatar(
-                                  backgroundColor: Colors.blueGrey.shade200,
-                                  child: Icon(
-                                    Icons.person,
-                                    color: Colors.white,
-                                  )),
-                              trailing: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Icon(Icons.speed),
-                                  Text(snapshot.data!.docs[index]['pkgType']
-                                          .toString() +
-                                      " MB/s")
-                                ],
-                              ),
-                              title: Text(snapshot.data!.docs[index]['UserName']
-                                  .toString()),
-                              subtitle: Text(snapshot
-                                  .data!.docs[index]['address']
-                                  .toString()),
-                            ),
-                          ),
-                        );
-                      }),
-                );
-              }),
-        ],
-      )),
+          ],
+        ),
+      ),
+
+      // body: TabBarView(
+      //   controller: controller.tabController,
+      //   children: [
+      //     // Replace these with the content for each tab.
+      //     AllUsers(),
+      //     ExpiredUsers(),
+      //     Center(child: Text('1 day left')),
+      //     Center(child: Text('2 days left')),
+      //     Center(child: Text('3 days left')),
+      //   ],
+      // ),
+
     );
   }
 }
