@@ -7,11 +7,14 @@ class SplashScreen extends GetView<SplashController> {
 
   @override
   Widget build(BuildContext context) {
-controller.checkLogin();
+    controller.chkNotifications();
+    controller.checkLogin();
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Center(child: Text("SplashScreen"),),
+          child: Center(
+            child: Text("SplashScreen"),
+          ),
         ),
       ),
     );
