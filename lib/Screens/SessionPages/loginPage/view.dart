@@ -1,3 +1,5 @@
+import 'package:d_net/Utilities/ReusableComponents/utilis.dart';
+import 'package:d_net/Utilities/services/shared_pref_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,10 +37,19 @@ class LoginScreen extends GetView<loginController> {
                   if (controller.state.emailController.text ==
                       "rehandreamnet@gmail.com" &&
                       controller.state.passController.text == "rehan@123") {
-                    Get.offAllNamed(RoutesNames.adminScreen);
+                    sharedPrefrences().setAdminLogin(true).then((value){
+                      print("Setted true");
+                      Utils.showToast("Admin Login Successfull");
+                      Get.offAllNamed(RoutesNames.adminScreen);
+                    }).onError((error, stackTrace){
+
+                      Utils.showToast("Error While Login");
+                      Get.to(LoginScreen());
+                    });
+
                   } else {
-                    controller.handleLogin(controller.state.emailController.text,
-                        controller.state.passController.text);
+                    controller.handleLogin(controller.state.emailController.text.trim().toString(),
+                        controller.state.passController.text.trim().toString());
                   }
                 },
                 child: controller.state.loading.value==true ? Center(

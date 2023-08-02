@@ -22,6 +22,7 @@ class AdminView extends GetView<AdminController> {
         actions: [
           IconButton(
               onPressed: () {
+
                 controller.signOut();
               },
               icon: Icon(Icons.logout))
@@ -35,10 +36,12 @@ class AdminView extends GetView<AdminController> {
             color: Colors.blueGrey,
             child: Center(
               child: AnimatedTextKit(
+                isRepeatingAnimation: true,
+                repeatForever: true,
                 animatedTexts: [
                   TypewriterAnimatedText(
                     "Dream Net",
-                  speed: Duration(milliseconds: 500),
+                  speed: Duration(milliseconds: 200),
                 textStyle: TextStyle(
                       fontSize: 32.0,
                       fontWeight: FontWeight.bold,

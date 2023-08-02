@@ -17,6 +17,7 @@ class NotificationServices {
 
     if(settings.authorizationStatus == AuthorizationStatus.authorized) {
       print('Permission Granted');
+      print("granted automatically");
     }else if(settings.authorizationStatus == AuthorizationStatus.provisional) {
       print('Provisional permissions granted');
     }else {

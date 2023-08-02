@@ -9,6 +9,7 @@ class UserView extends GetView<UserController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.chkNotifications();
     return Scaffold(
       appBar: AppBar(
         title: Text('UserView'),

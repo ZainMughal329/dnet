@@ -172,8 +172,8 @@ class SignUpScreen extends GetView<SignInController> {
                 return ElevatedButton(
                   onPressed: () {
                     controller.handleSignIn(
-                        controller.state.emailController.text,
-                        controller.state.passController.text);
+                        controller.state.emailController.text.trim().toString(),
+                        controller.state.passController.text.trim().toString());
                   },
                   child: controller.state.loading.value == true
                       ? Center(

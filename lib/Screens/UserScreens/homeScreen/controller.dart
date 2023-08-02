@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:d_net/Screens/UserScreens/homeScreen/state.dart';
 import 'package:d_net/Utilities/ReusableComponents/utilis.dart';
 import 'package:d_net/Utilities/Routes/routesNames.dart';
+import 'package:d_net/Utilities/services/notification_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -29,6 +30,12 @@ class UserController extends GetxController {
       state.remainingDays.value = calculateRemainingDays(
           state.startDateTime.value, state.endDateTime.value);
     });
+  }
+
+  void chkNotifications() {
+    print('Inside');
+    NotificationServices notificationServices = NotificationServices();
+    notificationServices.requestPermissions();
   }
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getNodeData() {

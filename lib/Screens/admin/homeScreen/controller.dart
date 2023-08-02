@@ -4,10 +4,12 @@ import 'package:d_net/Screens/admin/homeScreen/state.dart';
 // import 'package:d_net/Screens/admin/state.dart';
 import 'package:d_net/Utilities/Routes/routesNames.dart';
 import 'package:d_net/Utilities/models/userModel.dart';
+import 'package:d_net/Utilities/services/shared_pref_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Utilities/ReusableComponents/utilis.dart';
 
@@ -24,12 +26,21 @@ class AdminController extends GetxController {
 
   void signOut() async {
     try {
-      await auth.signOut().then((value) {
-        Utils.showToast("Signed Out Successfully");
-        Get.offAllNamed(RoutesNames.loginScreen);
-      }).onError((error, stackTrace) {
-        Utils.showToast("Error Occurred :" + error.toString());
+      sharedPrefrences().setAdminLogin(false).then((value){
+        Utils.showToast("Admin Logout Successfully");
+        Get.offNamed(RoutesNames.loginScreen);
+      }).onError((error, stackTrace){
+        Utils.showToast("Admin Logout Successfully");
+        Utils.showToast(error.toString());
+        Get.offNamed(RoutesNames.loginScreen);
       });
+      // await auth.signOut().then((value) {
+      //
+      //   Utils.showToast("Signed Out Successfully");
+      //   Get.offAllNamed(RoutesNames.loginScreen);
+      // }).onError((error, stackTrace) {
+      //   Utils.showToast("Error Occurred :" + error.toString());
+      // });
     } catch (e) {
       Utils.showToast("Error Occurred : " + e.toString());
     }
