@@ -3,8 +3,8 @@ import 'package:d_net/Screens/admin/homeScreen/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OneDay extends GetView<AdminController> {
-  const OneDay({Key? key}) : super(key: key);
+class ThreeDays extends GetView<AdminController> {
+  const ThreeDays({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class OneDay extends GetView<AdminController> {
           child: Column(
             children: [
               StreamBuilder<QuerySnapshot>(
-                  stream: controller.state.dbref,
+                  stream: FirebaseFirestore.instance.collection("users").snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
 
                     if (snapshot.hasData) {
@@ -37,7 +37,7 @@ class OneDay extends GetView<AdminController> {
                               print('Index : ' + index.toString());
                               print('Remaining are : ' + remaining.toString());
 
-                              if (remaining == 1) {
+                              if (remaining == 3) {
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 2, vertical: 1),

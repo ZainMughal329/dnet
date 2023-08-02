@@ -13,7 +13,7 @@ class TwoDays extends GetView<AdminController> {
           child: Column(
             children: [
               StreamBuilder<QuerySnapshot>(
-                  stream: controller.state.dbref,
+                  stream: FirebaseFirestore.instance.collection("users").snapshots(),
                   builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
 
                     if (snapshot.hasData) {

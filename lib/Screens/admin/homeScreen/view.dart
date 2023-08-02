@@ -8,7 +8,8 @@ import 'package:d_net/Screens/admin/homeScreen/all_users.dart';
 // import 'package:d_net/Screens/admin/controller.dart';
 import 'package:d_net/Screens/admin/homeScreen/controller.dart';
 import 'package:d_net/Screens/admin/homeScreen/expired_users.dart';
-import 'package:d_net/Screens/admin/homeScreen/three_days.dart';
+import 'package:d_net/Screens/admin/homeScreen/one_day.dart';
+import 'package:d_net/Screens/admin/homeScreen/three_day.dart';
 import 'package:d_net/Screens/admin/homeScreen/two_days.dart';
 import 'package:d_net/Screens/admin/homeScreen/update.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +58,42 @@ class AdminView extends GetView<AdminController> {
               onPressed: () {
                 controller.signOut();
               },
-              icon: Icon(Icons.logout))
+              icon: Icon(Icons.logout)),
+          SizedBox(
+            width: 5,
+          ),
+          // PopupMenuButton(
+          //     icon: Icon(Icons.more_vert_rounded),
+          //     itemBuilder: (context) => [
+          //           PopupMenuItem(
+          //             value: 1,
+          //             child: Text("Expired"),
+          //           ),
+          //           PopupMenuItem(
+          //             value: 2,
+          //             child: Text("Page 2"),
+          //           ),
+          //           PopupMenuItem(
+          //             value: 3,
+          //             child: Text("Page 3"),
+          //           ),
+          //         ],
+          //   onSelected: (value) {
+          //     switch (value) {
+          //       case 1:
+          //         Get.to(ExpiredUsers());
+          //         break;
+          //       case 2:
+          //         Navigator.pushNamed(context, '/page2');
+          //         break;
+          //       case 3:
+          //         Navigator.pushNamed(context, '/page3');
+          //         break;
+          //     }
+          //   },
+          // ),
         ],
+
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -79,7 +114,6 @@ class AdminView extends GetView<AdminController> {
                     Tab(text: '1 day left'),
                     Tab(text: '2 days left'),
                     Tab(text: '3 days left'),
-
                   ],
                 ),
               ),
@@ -95,9 +129,7 @@ class AdminView extends GetView<AdminController> {
                   ExpiredUsers(),
                   OneDay(),
                   TwoDays(),
-                  Center(
-                    child: Text('Three days left'),
-                  ),
+                  ThreeDays(),
                 ],
               ),
             ),
@@ -116,7 +148,6 @@ class AdminView extends GetView<AdminController> {
       //     Center(child: Text('3 days left')),
       //   ],
       // ),
-
     );
   }
 }

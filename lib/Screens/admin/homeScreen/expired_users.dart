@@ -13,7 +13,8 @@ class ExpiredUsers extends GetView<AdminController> {
           child: Column(
         children: [
           StreamBuilder<QuerySnapshot>(
-              stream: controller.state.dbref,
+              // stream: controller.state.dbref,
+              stream : FirebaseFirestore.instance.collection("users").snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
 
                 if (snapshot.hasData) {
@@ -33,7 +34,7 @@ class ExpiredUsers extends GetView<AdminController> {
 
                           Duration difference = end.difference(start);
 
-                          int remaining = difference.inDays;
+                          int remaining = difference.inDays ;
                           print('Index : ' + index.toString());
                           print('Remaining are : ' + remaining.toString());
 
