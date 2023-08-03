@@ -21,7 +21,10 @@ class SplashController extends GetxController{
     try {
 
       if( await sharedPrefrences().isAdminLogin() ){
-        Get.offNamed(RoutesNames.adminScreen);
+        Future.delayed(Duration(seconds: 3), () {
+          Get.offNamed(RoutesNames.adminScreen);
+        });
+
       }else{
         if(auth.currentUser !=null){
           print(" user not null");
