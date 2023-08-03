@@ -29,7 +29,7 @@ class TwoDays extends GetView<AdminController> {
                               DateTime start = DateTime.now();
                               DateTime end = DateTime.parse(snapshot
                                   .data!.docs[index]['pkgEndDate']
-                                  .toString());
+                                  .toString()).add(Duration(days: 1));
 
                               Duration difference = end.difference(start);
 

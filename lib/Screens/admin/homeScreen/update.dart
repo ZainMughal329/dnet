@@ -90,6 +90,7 @@ class UpdateScreen extends GetView<AdminController> {
               final pass = TextEditingController(text: userModel.password);
               final add = TextEditingController(text: userModel.address);
               final pkgType = TextEditingController(text: userModel.pkgType);
+              print('type : ' + userModel.pkgType.toString());
               final startDate =
                   TextEditingController(text: userModel.pkgStartDate);
               final endDate = TextEditingController(text: userModel.pkgEndDate);
@@ -170,9 +171,9 @@ class UpdateScreen extends GetView<AdminController> {
                                 decoration: InputDecoration(
                                     label: Text('End Date'),
                                     // labelText: 'Start Date',
-                                    hintText: DateFormat.yMMMMd().format(
-                                        DateTime.parse(
-                                            endDate.text.toString())),
+                                    hintText:DateFormat.yMMMMd().format(
+                                      controller.state.selectedEndDate,
+                                    ),
                                     suffixIcon: IconButton(
                                       icon: Icon(Icons.calendar_today_outlined),
                                       onPressed: () {
@@ -215,7 +216,9 @@ class UpdateScreen extends GetView<AdminController> {
                                     .toString(),
                                 pkgEndDate:
                                     controller.state.selectedEndDate.toString(),
-                                pkgType: controller.state.package.value,
+                                pkgType: controller.state.package.value == ""
+                                    ? pkgType.text
+                                    : controller.state.package.value,
                                 password: pass.text.trim(),
                                 address: add.text.trim());
                             await controller.updateUser(userData);
