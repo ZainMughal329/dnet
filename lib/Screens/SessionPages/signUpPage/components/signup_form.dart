@@ -13,8 +13,13 @@ class SignUpForm extends GetView<SignInController> {
       () => Expanded(
         flex: 0,
         child: DropdownButton(
-          iconEnabledColor: Colors.green,
-          // iconSize: ,
+          iconEnabledColor: kPrimaryColor,
+          dropdownColor: kPrimaryLightColor,
+
+          borderRadius: BorderRadius.circular(10),
+          // isDense: true,
+          // isExpanded: true,
+          // iconSize: 40,
           hint: controller.state.package.value == ""
               ? Text("Select Package")
               : Text(controller.state.package.value),
@@ -209,13 +214,39 @@ class SignUpForm extends GetView<SignInController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Package",
-                  style: TextStyle(
-                      // decoration: TextDecoration.underline,
-                      fontSize: 16,
-                      color: Colors.grey.shade700),
+                Container(
+                  // height: 20,
+                  // width: 60,
+
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(width: 10,),
+                        Text(
+                          "Package",
+                          style: TextStyle(
+                            // decoration: TextDecoration.underline,
+                              fontSize: 16,
+                              color: Colors.grey.shade700),
+                        ),
+
+                        SizedBox(width: 50,),
+                        Icon(Icons.shopping_bag_outlined,color: kPrimaryColor,),
+                      ],
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: kPrimaryLightColor,
+                    borderRadius: BorderRadius.circular(20),
+                    // backgroundBlendMode: BlendMode.lighten
+                    // border: Border.all(
+                    //   // color: kPrimaryColor
+                    // )
+                  ),
                 ),
+
                 _buildPackageList(),
               ],
             ),

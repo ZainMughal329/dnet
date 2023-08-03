@@ -58,15 +58,19 @@ class LoginForm extends GetView<loginController> {
                   if (controller.state.emailController.text ==
                           "rehandreamnet@gmail.com" &&
                       controller.state.passController.text == "rehan@123") {
+                    controller.setLoading(true);
                     sharedPrefrences().setAdminLogin(true).then((value) {
+                      controller.setLoading(false);
                       print("Setted true");
                       Utils.showToast("Admin Login Successfull");
                       Get.offAllNamed(RoutesNames.adminScreen);
                     }).onError((error, stackTrace) {
+                      controller.setLoading(false);
                       Utils.showToast("Error While Login");
                       Get.to(LoginScreen());
                     });
                   } else {
+                    controller.setLoading(false);
                     controller.handleLogin(
                         controller.state.emailController.text.trim().toString(),
                         controller.state.passController.text.trim().toString());

@@ -45,15 +45,23 @@ class UserController extends GetxController {
         .snapshots();
   }
 
+  void setLoading(bool value){
+    state.loading.value=value;
+  }
+
   void signOut() async {
+    setLoading(true);
     try {
       await auth.signOut().then((value) {
+        setLoading(false);
         Utils.showToast("Signed Out Successfully");
         Get.offAllNamed(RoutesNames.loginScreen);
       }).onError((error, stackTrace) {
+        setLoading(false);
         Utils.showToast("Error Occurred :" + error.toString());
       });
     } catch (e) {
+      setLoading(false);
       Utils.showToast("Error Occurred : " + e.toString());
     }
   }

@@ -40,12 +40,19 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
   final auth = FirebaseAuth.instance;
   final _db = FirebaseFirestore.instance.collection('users');
 
+  setLogoutLoading(value){
+    state.logoutLoading.value=value;
+  }
+
   void signOut() async {
+    setLogoutLoading(true);
     try {
       sharedPrefrences().setAdminLogin(false).then((value){
+        setLogoutLoading(false);
         Utils.showToast("Admin Logout Successfully");
         Get.offNamed(RoutesNames.loginScreen);
       }).onError((error, stackTrace){
+        setLogoutLoading(false);
         Utils.showToast("Admin Logout Successfully");
         Utils.showToast(error.toString());
         Get.offNamed(RoutesNames.loginScreen);
@@ -58,6 +65,7 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
       //   Utils.showToast("Error Occurred :" + error.toString());
       // });
     } catch (e) {
+      setLogoutLoading(false);
       Utils.showToast("Error Occurred : " + e.toString());
     }
   }

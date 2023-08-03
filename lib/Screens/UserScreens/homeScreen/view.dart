@@ -234,7 +234,8 @@ class UserView extends GetView<UserController> {
                       onPressed: () {
                         controller.signOut();
                       },
-                      child: Text(
+                      child: controller.state.loading.value ? Center(child: CircularProgressIndicator(color: kPrimaryColor,),)
+                      : Text(
                         "Logout".toUpperCase(),
                       ),
                     ),

@@ -22,6 +22,44 @@ class AdminView extends GetView<AdminController> {
   AdminView({Key? key}) : super(key: key);
   final db = FirebaseFirestore.instance.collection("user");
 
+  _showLogoutDialogue(BuildContext context ){
+    showDialog(context: context,
+        builder: (BuildContext context){
+          return controller.state.logoutLoading.value ?
+
+              AlertDialog(
+                title: Text('Confirmation'),
+                content: Text('Are you sure you want to logout?'),
+                actions: [
+                  Center(child: CircularProgressIndicator(color: kPrimaryColor,),),
+                ],
+                backgroundColor: kPrimaryLightColor,
+              )
+          :
+          AlertDialog(
+            title: Text('Confirmation'),
+            content: Text('Are you sure you want to logout?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(), // cancel option
+                child: Text('No'),
+              ),
+              TextButton(
+                onPressed: () {
+                  controller.signOut();
+
+                  // insert logout method here
+                  Navigator.of(context).pop();
+                },
+                child: Text('Yes'),
+              ),
+            ],
+          )
+          ;
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,9 +96,9 @@ class AdminView extends GetView<AdminController> {
         actions: [
           IconButton(
               onPressed: () {
-                controller.signOut();
+                _showLogoutDialogue(context);
               },
-              icon: Icon(Icons.logout)),
+              icon: Icon(Icons.power_settings_new,size: 30,)),
           SizedBox(
             width: 5,
           ),
@@ -157,3 +195,4 @@ class AdminView extends GetView<AdminController> {
     );
   }
 }
+

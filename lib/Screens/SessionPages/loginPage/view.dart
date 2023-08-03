@@ -101,21 +101,23 @@ class MobileLoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        LoginScreenTopImage(),
-        Row(
-          children: [
-            Spacer(),
-            Expanded(
-              flex: 8,
-              child: LoginForm(),
-            ),
-            Spacer(),
-          ],
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          LoginScreenTopImage(),
+          Row(
+            children: [
+              Spacer(),
+              Expanded(
+                flex: 8,
+                child: LoginForm(),
+              ),
+              Spacer(),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

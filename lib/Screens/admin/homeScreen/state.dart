@@ -19,6 +19,7 @@ class AdminState {
 
   final  package = "".obs;
   RxBool loading = false.obs;
+  RxBool logoutLoading =false.obs;
 
   RxInt remainingDays = 0.obs;
   Rx<DateTime> startDateTime = Rx<DateTime>(DateTime.now());
