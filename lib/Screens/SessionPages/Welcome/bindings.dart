@@ -1,0 +1,11 @@
+import 'package:d_net/Screens/SessionPages/SplashScreen/controller.dart';
+import 'package:get/get.dart';
+
+class WelcomeBindings implements Bindings{
+  @override
+  void dependencies() {
+    // TODO: implement dependencies
+    Get.lazyPut<SplashController>(() => SplashController());
+  }
+
+}

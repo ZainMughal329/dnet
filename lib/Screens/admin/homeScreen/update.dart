@@ -1,4 +1,5 @@
 import 'package:d_net/Screens/admin/homeScreen/view.dart';
+import 'package:d_net/Utilities/ReusableComponents/constants.dart';
 import 'package:d_net/Utilities/Routes/routesNames.dart';
 import 'package:d_net/Utilities/models/userModel.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +70,7 @@ class UpdateScreen extends GetView<AdminController> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Update Data'),
+        backgroundColor: kPrimaryColor,
       ),
       body: SingleChildScrollView(
         child: FutureBuilder(
@@ -103,108 +105,176 @@ class UpdateScreen extends GetView<AdminController> {
                       SizedBox(height: 50.0),
                       TextFormField(
                         controller: name,
-                        readOnly: true,
-                        // decoration: InputDecoration(labelText: 'Full Name'),
-                      ),
-                      SizedBox(height: 16.0),
-                      TextFormField(
-                        controller: email,
-                        readOnly: true,
-                        // decoration: InputDecoration(labelText: 'Email'),
-                        keyboardType: TextInputType.emailAddress,
-                      ),
-                      SizedBox(height: 16.0),
-                      TextFormField(
-                        controller: pass,
-                        // decoration: InputDecoration(labelText: 'Password'),
-                        readOnly: true,
-                        obscureText: true,
-                      ),
-                      SizedBox(height: 16.0),
-                      TextFormField(
-                        controller: phone,
-                        readOnly: true,
-                        // decoration: InputDecoration(labelText: 'Phone Number'),
-                        keyboardType: TextInputType.number,
-                      ),
-                      SizedBox(height: 16.0),
-                      TextFormField(
-                        controller: add,
 
                         readOnly: true,
-                        // decoration: InputDecoration(labelText: 'Address'),
-                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.next,
+                        // obscureText: true,
+                        cursorColor: kPrimaryColor,
+                        decoration: InputDecoration(
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.all(defaultPadding),
+                            child: Icon(Icons.person),
+                          ),
+                        ),
+                        // decoration: InputDecoration(labelText: 'Full Name'),
                       ),
-                      SizedBox(height: 16.0),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: GetBuilder<AdminController>(builder: (con) {
-                              return TextFormField(
-                                controller:
-                                    controller.state.startDateController,
-                                decoration: InputDecoration(
-                                    // label: Text('Start date'),
-                                    labelText: 'Start Date',
-                                    hintText: DateFormat.yMMMMd().format(
-                                      DateTime.parse(startDate.text.toString()),
-                                    ),
-                                    suffixIcon: IconButton(
-                                      icon: Icon(Icons.calendar_today_outlined),
-                                      onPressed: () {
-                                        print('Hi there');
-                                        con.updateStartDate(context);
-                                      },
-                                    )),
-                                keyboardType: TextInputType.datetime,
-                                readOnly: true,
-                              );
-                            }),
+                      Padding(
+                        padding : EdgeInsets.symmetric(vertical: defaultPadding/2),
+                        child: TextFormField(
+                          controller: email,
+                          readOnly: true,
+                          textInputAction: TextInputAction.next,
+                          // obscureText: true,
+                          cursorColor: kPrimaryColor,
+                          decoration: InputDecoration(
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(defaultPadding),
+                              child: Icon(Icons.email_outlined),
+                            ),
                           ),
-                          SizedBox(
-                            width: 16.0,
-                          ),
-                          Expanded(
-                            child: GetBuilder<AdminController>(builder: (con) {
-                              return TextFormField(
-                                controller: controller.state.endDateController,
-                                decoration: InputDecoration(
-                                    label: Text('End Date'),
-                                    // labelText: 'Start Date',
-                                    hintText:DateFormat.yMMMMd().format(
-                                      controller.state.selectedEndDate,
-                                    ),
-                                    suffixIcon: IconButton(
-                                      icon: Icon(Icons.calendar_today_outlined),
-                                      onPressed: () {
-                                        print('Hi there');
-                                        con.updateEndDate(context);
-                                      },
-                                    )),
-                                keyboardType: TextInputType.datetime,
-                                readOnly: true,
-                              );
-                            }),
-                          ),
-                        ],
+                          // decoration: InputDecoration(labelText: 'Email'),
+                          keyboardType: TextInputType.emailAddress,
+                        ),
                       ),
-                      SizedBox(height: 16.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Package",
-                            style: TextStyle(
-                                // decoration: TextDecoration.underline,
-                                fontSize: 16,
-                                color: Colors.grey.shade700),
+                      Padding(
+                        padding : EdgeInsets.symmetric(vertical: defaultPadding/4),
+                        child: TextFormField(
+                          controller: pass,
+                          // decoration: InputDecoration(labelText: 'Password'),
+                          readOnly: true,
+                          obscureText: true,
+                          textInputAction: TextInputAction.next,
+                          // obscureText: true,
+                          cursorColor: kPrimaryColor,
+                          decoration: InputDecoration(
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(defaultPadding),
+                              child: Icon(Icons.lock),
+                            ),
                           ),
-                          _buildPackageList(pkgType.text.toString()),
-                        ],
+                        ),
                       ),
-                      SizedBox(
+                      Padding(
+                        padding : EdgeInsets.symmetric(vertical: defaultPadding/4),
+                        child: TextFormField(
+                          controller: phone,
+                          readOnly: true,
+                          // decoration: InputDecoration(labelText: 'Phone Number'),
+                          keyboardType: TextInputType.number,
+                          textInputAction: TextInputAction.next,
+                          // obscureText: true,
+                          cursorColor: kPrimaryColor,
+                          decoration: InputDecoration(
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(defaultPadding),
+                              child: Icon(Icons.phone_android),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding : EdgeInsets.symmetric(vertical: defaultPadding/4),
+                        child: TextFormField(
+                          controller: add,
+
+                          readOnly: true,
+                          // decoration: InputDecoration(labelText: 'Address'),
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          // obscureText: true,
+                          cursorColor: kPrimaryColor,
+                          decoration: InputDecoration(
+                            prefixIcon: Padding(
+                              padding: const EdgeInsets.all(defaultPadding),
+                              child: Icon(Icons.home_filled),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding : EdgeInsets.symmetric(vertical: defaultPadding/4),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: GetBuilder<AdminController>(builder: (con) {
+                                return TextFormField(
+                                  controller:
+                                      controller.state.startDateController,
+                                  textInputAction: TextInputAction.next,
+                                  // obscureText: true,
+                                  cursorColor: kPrimaryColor,
+                                  decoration: InputDecoration(
+                                      // label: Text('Start date'),
+
+                                      labelText: 'Start Date',
+                                      hintText: DateFormat.yMMMMd().format(
+                                        DateTime.parse(startDate.text.toString()),
+                                      ),
+                                      suffixIcon: IconButton(
+                                        icon: Icon(Icons.calendar_today_outlined , color: kPrimaryColor),
+                                        onPressed: () {
+                                          print('Hi there');
+                                          con.updateStartDate(context);
+                                        },
+                                      )),
+                                  keyboardType: TextInputType.datetime,
+                                  readOnly: true,
+                                );
+                              }),
+                            ),
+                            SizedBox(width: 7.0,),
+                            Expanded(
+                              child: GetBuilder<AdminController>(builder: (con) {
+                                return TextFormField(
+                                  controller: controller.state.endDateController,
+                                  textInputAction: TextInputAction.next,
+                                  // obscureText: true,
+                                  cursorColor: kPrimaryColor,
+                                  decoration: InputDecoration(
+                                      label: Text('End Date'),
+                                      // labelText: 'Start Date',
+                                      hintText:DateFormat.yMMMMd().format(
+                                        controller.state.selectedEndDate,
+                                      ),
+                                      suffixIcon: IconButton(
+                                        icon: Icon(Icons.calendar_today_outlined , color: kPrimaryColor,),
+                                        onPressed: () {
+                                          print('Hi there');
+                                          con.updateEndDate(context);
+                                        },
+                                      )),
+                                  keyboardType: TextInputType.datetime,
+                                  readOnly: true,
+                                );
+                              }),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding : EdgeInsets.symmetric(vertical: defaultPadding/4),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Package",
+                              style: TextStyle(
+                                  // decoration: TextDecoration.underline,
+                                  fontSize: 16,
+                                  color: Colors.grey.shade700),
+                            ),
+                            _buildPackageList(pkgType.text.toString()),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20,),
+                      Container(
                         width: double.infinity,
                         height: 50,
+                        decoration: BoxDecoration(
+                          color: kPrimaryColor,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         child: ElevatedButton(
                           onPressed: () async {
                             var userData = UserModel(
@@ -227,7 +297,7 @@ class UpdateScreen extends GetView<AdminController> {
                             Get.snackbar('Successfully updated', '');
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.black,
+                            backgroundColor: kPrimaryColor,
                             side: BorderSide.none,
                             shape: const StadiumBorder(),
                           ),

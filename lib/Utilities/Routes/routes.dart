@@ -1,4 +1,6 @@
 import 'package:d_net/Screens/SessionPages/SplashScreen/index.dart';
+import 'package:d_net/Screens/SessionPages/Welcome/bindings.dart';
+import 'package:d_net/Screens/SessionPages/Welcome/view.dart';
 import 'package:d_net/Screens/UserScreens/homeScreen/bindings.dart';
 import 'package:d_net/Screens/admin/homeScreen/bindings.dart';
 import 'package:d_net/Screens/admin/homeScreen/view.dart';
@@ -24,6 +26,11 @@ class AppPages {
       name: RoutesNames.signUpScreen,
       page: () => SignUpScreen(),
       binding: SignUpBindings(),
+    ),
+    GetPage(
+      name: RoutesNames.welcomeScreen,
+      page: () => WelcomeScreen(),
+      binding: WelcomeBindings(),
     ),
     GetPage(
       name: RoutesNames.userScreen,

@@ -12,6 +12,7 @@ import 'package:d_net/Screens/admin/homeScreen/one_day.dart';
 import 'package:d_net/Screens/admin/homeScreen/three_day.dart';
 import 'package:d_net/Screens/admin/homeScreen/two_days.dart';
 import 'package:d_net/Screens/admin/homeScreen/update.dart';
+import 'package:d_net/Utilities/ReusableComponents/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,7 +31,7 @@ class AdminView extends GetView<AdminController> {
             animatedTexts: [
               TypewriterAnimatedText(
                 "Dream Net",
-                speed: Duration(milliseconds: 500),
+                speed: Duration(milliseconds: 550),
                 textStyle: TextStyle(
                   fontSize: 32.0,
                   fontWeight: FontWeight.bold,
@@ -42,17 +43,18 @@ class AdminView extends GetView<AdminController> {
             ],
           ),
         ),
-        backgroundColor: Colors.blueGrey,
-        // bottom: TabBar(
-        //   controller: controller.tabController,
-        //   tabs: [
-        //     Tab(text: 'All users'),
-        //     Tab(text: 'Expired users'),
-        //     Tab(text: '1 day left'),
-        //     Tab(text: '2 days left'),
-        //     Tab(text: '3 days left'),
-        //   ],
-        // ),
+        backgroundColor: kPrimaryColor,
+        bottom: TabBar(
+          controller: controller.tabController,
+          indicatorColor: Colors.white,
+          tabs: [
+            Tab(text: 'All\nusers'),
+            Tab(text: 'Expired\nusers'),
+            Tab(text: '1 day\nleft'),
+            Tab(text: '2 days\nleft'),
+            Tab(text: '3 days\nleft'),
+          ],
+        ),
         actions: [
           IconButton(
               onPressed: () {
@@ -95,59 +97,63 @@ class AdminView extends GetView<AdminController> {
         ],
 
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      // body: SingleChildScrollView(
+      //   child: Column(
+      //     children: [
+      //       Container(
+      //         child: Align(
+      //           alignment: Alignment.topLeft,
+      //           child: TabBar(
+      //             isScrollable: true,
+      //             labelPadding: EdgeInsets.only(right: 20, left: 20),
+      //             indicator: CircleTabIndicator(color: Colors.black, radius: 4),
+      //             controller: controller.tabController,
+      //             labelColor: Colors.black,
+      //             unselectedLabelColor: Colors.grey,
+      //             tabs: [
+      //               Tab(text: 'All users'),
+      //               Tab(text: 'Expired users'),
+      //               Tab(text: '1 day left'),
+      //               Tab(text: '2 days left'),
+      //               Tab(text: '3 days left'),
+      //             ],
+      //           ),
+      //         ),
+      //       ),
+      //       Container(
+      //         height: 590,
+      //         width: double.infinity,
+      //         child: TabBarView(
+      //           controller: controller.tabController,
+      //           children: [
+      //             // Get.offAndToNamed(page)
+      //             AllUsers(),
+      //             ExpiredUsers(),
+      //             OneDay(),
+      //             TwoDays(),
+      //             ThreeDays(),
+      //           ],
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+
+      // backgroundColor: kPrimaryColor,
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TabBarView(
+          controller: controller.tabController,
           children: [
-            Container(
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: TabBar(
-                  isScrollable: true,
-                  labelPadding: EdgeInsets.only(right: 20, left: 20),
-                  indicator: CircleTabIndicator(color: Colors.black, radius: 4),
-                  controller: controller.tabController,
-                  labelColor: Colors.black,
-                  unselectedLabelColor: Colors.grey,
-                  tabs: [
-                    Tab(text: 'All users'),
-                    Tab(text: 'Expired users'),
-                    Tab(text: '1 day left'),
-                    Tab(text: '2 days left'),
-                    Tab(text: '3 days left'),
-                  ],
-                ),
-              ),
-            ),
-            Container(
-              height: 590,
-              width: double.infinity,
-              child: TabBarView(
-                controller: controller.tabController,
-                children: [
-                  // Get.offAndToNamed(page)
-                  AllUsers(),
-                  ExpiredUsers(),
-                  OneDay(),
-                  TwoDays(),
-                  ThreeDays(),
-                ],
-              ),
-            ),
+            // Replace these with the content for each tab.
+            AllUsers(),
+            ExpiredUsers(),
+            OneDay(),
+            TwoDays(),
+            ThreeDays(),
           ],
         ),
       ),
-
-      // body: TabBarView(
-      //   controller: controller.tabController,
-      //   children: [
-      //     // Replace these with the content for each tab.
-      //     AllUsers(),
-      //     ExpiredUsers(),
-      //     Center(child: Text('1 day left')),
-      //     Center(child: Text('2 days left')),
-      //     Center(child: Text('3 days left')),
-      //   ],
-      // ),
     );
   }
 }

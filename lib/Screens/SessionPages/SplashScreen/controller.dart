@@ -31,7 +31,7 @@ class SplashController extends GetxController{
         }else{
           print(" user  null");
           Future.delayed(Duration(seconds: 3), () {
-            Get.offNamed(RoutesNames.loginScreen);
+            Get.offNamed(RoutesNames.welcomeScreen);
           });
         }
       }

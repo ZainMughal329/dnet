@@ -24,7 +24,7 @@ class UserController extends GetxController {
         .snapshots()
         .listen((doc) {
       state.startDateTime.value = DateTime.parse(doc['pkgStartDate'].toString());
-      state.endDateTime.value = DateTime.parse(doc['pkgEndDate'].toString());
+      state.endDateTime.value = DateTime.parse(doc['pkgEndDate'].toString()).add(Duration(days: 1));
 
       // Calculate remaining days and update the observable value
       state.remainingDays.value = calculateRemainingDays(
@@ -60,7 +60,8 @@ class UserController extends GetxController {
 
   int calculateRemainingDays(DateTime startDateTime, DateTime endDateTime) {
     // Calculate the difference between endDateTime and startDateTime
-    Duration difference = endDateTime.difference(startDateTime);
+    DateTime start = DateTime.now();
+    Duration difference = endDateTime.difference(start);
 
     // Get the number of remaining days from the difference
     int remainingDays = difference.inDays;
