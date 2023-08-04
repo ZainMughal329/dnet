@@ -2,6 +2,7 @@ import 'package:d_net/Screens/admin/homeScreen/view.dart';
 import 'package:d_net/Utilities/ReusableComponents/constants.dart';
 import 'package:d_net/Utilities/Routes/routesNames.dart';
 import 'package:d_net/Utilities/models/userModel.dart';
+import 'package:d_net/Utilities/services/notification_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -308,6 +309,7 @@ class UpdateScreen extends GetView<AdminController> {
                         ),
                         child: ElevatedButton(
                           onPressed: () async {
+                            String? token = await NotificationServices().getDeviceToken();
                             var userData = UserModel(
                                 id: id,
                                 email: email.text.trim(),
@@ -321,7 +323,9 @@ class UpdateScreen extends GetView<AdminController> {
                                     ? pkgType.text
                                     : controller.state.package.value,
                                 password: pass.text.trim(),
-                                address: add.text.trim());
+                                address: add.text.trim(),
+                            deviceToken: token,
+                            );
                             await controller.updateUser(userData);
                             // Get.to(() => AdminView());
                             // Get.toNamed(RoutesNames.adminScreen);

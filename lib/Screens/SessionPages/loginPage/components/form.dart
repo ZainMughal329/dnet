@@ -55,9 +55,9 @@ class LoginForm extends GetView<loginController> {
             child: Obx(
               () => ElevatedButton(
                 onPressed: () {
-                  if (controller.state.emailController.text ==
+                  if (controller.state.emailController.text.trim().toString() ==
                           "rehandreamnet@gmail.com" &&
-                      controller.state.passController.text == "rehan@123") {
+                      controller.state.passController.text.trim().toString() == "rehan@123") {
                     controller.setLoading(true);
                     sharedPrefrences().setAdminLogin(true).then((value) {
                       controller.setLoading(false);

@@ -16,6 +16,8 @@ class SignState {
   final  package = "".obs;
   RxBool loading = false.obs;
 
+  String? token;
+
 
 
 }

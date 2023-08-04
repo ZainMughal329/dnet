@@ -1,4 +1,5 @@
 import 'dart:async';
+// import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:d_net/Screens/UserScreens/homeScreen/state.dart';
@@ -18,6 +19,11 @@ class UserController extends GetxController {
   void onInit() {
     super.onInit();
     // Fetch startDateTime and endDateTime from Firestore using StreamBuilder
+
+
+
+
+
     FirebaseFirestore.instance
         .collection('users')
         .doc(auth.currentUser!.uid.toString())
@@ -77,4 +83,25 @@ class UserController extends GetxController {
     // Return the remaining days
     return remainingDays;
   }
+
+  void updateToken()async{
+   String? token =  await NotificationServices().getDeviceToken().then((value) {
+     print("INside update Token");
+     print(value.toString());
+     FirebaseFirestore.instance
+         .collection('users')
+         .doc(auth.currentUser!.uid.toString()).update({
+       'deviceToken' : value.toString(),
+     }).then((value){
+       print("Token Updated during HomeScreen");
+     }).onError((error, stackTrace){
+       print("Error on homeScreen Update");
+       Utils.showToast("HomeScreen token Error : " + error.toString());
+     });
+   });
+
+
+
+  }
+
 }

@@ -10,30 +10,33 @@ class UserModel {
   final String pkgType;
   final String password;
   final String address;
+  final String deviceToken;
 
-  UserModel(
-      {this.id,
-        required this.email,
-        required this.phoneNo,
-        required this.username,
-        required this.pkgStartDate,
-        required this.pkgEndDate,
-        required this.pkgType,
-        required this.password,
-      required this.address,
-      });
+  UserModel({
+    this.id,
+    required this.email,
+    required this.phoneNo,
+    required this.username,
+    required this.pkgStartDate,
+    required this.pkgEndDate,
+    required this.pkgType,
+    required this.password,
+    required this.address,
+    required this.deviceToken,
+  });
 
   toJson() {
     return {
-      'id' : id,
+      'id': id,
       'Email': email,
       'Phone': phoneNo,
-      'UserName' : username,
-      'pkgStartDate' : pkgStartDate,
-      'pkgEndDate' : pkgEndDate,
-      'pkgType' : pkgType,
+      'UserName': username,
+      'pkgStartDate': pkgStartDate,
+      'pkgEndDate': pkgEndDate,
+      'pkgType': pkgType,
       'Password': password,
-      'address' : address,
+      'address': address,
+      'deviceToken': deviceToken,
     };
   }
 
@@ -41,15 +44,16 @@ class UserModel {
       DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
     final data = documentSnapshot.data()!;
     return UserModel(
-        id: documentSnapshot.id,
-        email: data['Email'],
-        phoneNo: data['Phone'],
-        username: data['UserName'],
-        pkgStartDate: data['pkgStartDate'],
-        pkgEndDate: data['pkgEndDate'],
-        pkgType: data['pkgType'],
-        address: data['address'],
-        password: data['Password']);
-
+      id: documentSnapshot.id,
+      email: data['Email'],
+      phoneNo: data['Phone'],
+      username: data['UserName'],
+      pkgStartDate: data['pkgStartDate'],
+      pkgEndDate: data['pkgEndDate'],
+      pkgType: data['pkgType'],
+      address: data['address'],
+      password: data['Password'],
+      deviceToken: data['deviceToken'],
+    );
   }
 }

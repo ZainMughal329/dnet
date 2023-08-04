@@ -25,4 +25,15 @@ class NotificationServices {
       print('DENIED');
     }
   }
+
+  Future<String> getDeviceToken() async{
+    String? token =  await messaging.getToken();
+    return token!;
+  }
+    void isTokenRefresh(){
+    messaging.onTokenRefresh.listen((event) {
+    print(event.toString()) ;
+    })
+    ;
+  }
 }
