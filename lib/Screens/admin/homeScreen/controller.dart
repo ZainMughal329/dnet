@@ -40,6 +40,28 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
   final auth = FirebaseAuth.instance;
   final _db = FirebaseFirestore.instance.collection('users');
 
+  final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+  final RxList<QueryDocumentSnapshot<Map<String, dynamic>>> searchResults = RxList([]);
+
+  void searchUsers(String keyword) {
+    usersCollection
+        .where('Username', isGreaterThanOrEqualTo: keyword)
+        .where('Username', isLessThan: keyword + 'z') // To simulate a case-insensitive search
+        .snapshots()
+        .listen((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
+      searchResults.assignAll(querySnapshot.docs);
+    } as void Function(QuerySnapshot<Object?> event)?);
+  }
+
+  // void startSearch() {
+  //   state.isSearching.value = true;
+  // }
+  //
+  // void stopSearch() {
+  //   state.isSearching.value = false;
+  // }
+
+
   setLogoutLoading(value){
     state.logoutLoading.value=value;
   }

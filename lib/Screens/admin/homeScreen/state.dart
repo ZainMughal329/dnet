@@ -11,6 +11,7 @@ class AdminState {
   final passController = TextEditingController();
   final addressController = TextEditingController();
   final phoneController = TextEditingController();
+  final searchController = TextEditingController();
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
   DateTime selectedStartDate = DateTime.now();
@@ -25,4 +26,7 @@ class AdminState {
   Rx<DateTime> startDateTime = Rx<DateTime>(DateTime.now());
   Rx<DateTime> endDateTime = Rx<DateTime>(DateTime.now());
 
+  var isSearchBarOpen = false.obs;
+
+  RxString name = "".obs;
 }
