@@ -15,11 +15,16 @@ class UpdateScreen extends GetView<AdminController> {
 
   Widget _buildPackageList(String pkg) {
     return Obx(
-      () => Expanded(
+          () => Expanded(
         flex: 0,
         child: DropdownButton(
-          iconEnabledColor: Colors.green,
-          // iconSize: ,
+          iconEnabledColor: kPrimaryColor,
+          dropdownColor: kPrimaryLightColor,
+
+          borderRadius: BorderRadius.circular(10),
+          // isDense: true,
+          // isExpanded: true,
+          // iconSize: 40,
           hint: controller.state.package.value == ""
               ? Text(pkg)
               : Text(controller.state.package.value),
@@ -206,9 +211,9 @@ class UpdateScreen extends GetView<AdminController> {
                                   decoration: InputDecoration(
                                       // label: Text('Start date'),
 
-                                      labelText: 'Start Date',
+                                      // labelText: 'Start Date',
                                       hintText: DateFormat.yMMMMd().format(
-                                        DateTime.parse(startDate.text.toString()),
+                                        DateTime.parse(controller.state.selectedStartDate.toString()),
                                       ),
                                       suffixIcon: IconButton(
                                         icon: Icon(Icons.calendar_today_outlined , color: kPrimaryColor),
@@ -231,7 +236,8 @@ class UpdateScreen extends GetView<AdminController> {
                                   // obscureText: true,
                                   cursorColor: kPrimaryColor,
                                   decoration: InputDecoration(
-                                      label: Text('End Date'),
+                                      // label: Text('End Date' , style: TextStyle(color: kPrimaryColor),),
+
                                       // labelText: 'Start Date',
                                       hintText:DateFormat.yMMMMd().format(
                                         controller.state.selectedEndDate,
@@ -256,12 +262,37 @@ class UpdateScreen extends GetView<AdminController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Package",
-                              style: TextStyle(
-                                  // decoration: TextDecoration.underline,
-                                  fontSize: 16,
-                                  color: Colors.grey.shade700),
+                            Container(
+                              // height: 20,
+                              // width: 60,
+
+                              child: Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(width: 10,),
+                                    Text(
+                                      "Package",
+                                      style: TextStyle(
+                                        // decoration: TextDecoration.underline,
+                                          fontSize: 16,
+                                          color: Colors.grey.shade700),
+                                    ),
+
+                                    SizedBox(width: 50,),
+                                    Icon(Icons.shopping_bag_outlined,color: kPrimaryColor,),
+                                  ],
+                                ),
+                              ),
+                              decoration: BoxDecoration(
+                                color: kPrimaryLightColor,
+                                borderRadius: BorderRadius.circular(20),
+                                // backgroundBlendMode: BlendMode.lighten
+                                // border: Border.all(
+                                //   // color: kPrimaryColor
+                                // )
+                              ),
                             ),
                             _buildPackageList(pkgType.text.toString()),
                           ],
