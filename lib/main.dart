@@ -1,5 +1,6 @@
 import 'package:d_net/Utilities/ReusableComponents/reuseableTextFormField.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,8 +11,13 @@ import 'Utilities/Routes/routesNames.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_FirebaseMessangingBackgroundHandler);
 
   runApp(const MyApp());
+}
+@pragma('vm:entry-point')
+Future<void> _FirebaseMessangingBackgroundHandler(RemoteMessage message) async{
+  await Firebase.initializeApp();
 }
 
 class MyApp extends StatelessWidget {

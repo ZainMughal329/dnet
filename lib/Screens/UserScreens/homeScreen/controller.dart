@@ -102,6 +102,12 @@ class UserController extends GetxController {
 
 
 
+
+
+  }
+
+  void initializeNotification(context){
+    NotificationServices().FirebaseInit(context);
   }
 
 }
