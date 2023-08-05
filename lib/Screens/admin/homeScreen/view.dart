@@ -69,12 +69,20 @@ class AdminView extends GetView<AdminController> {
         title: Obx(
           () => controller.state.isSearchBarOpen.value
               ? TextFormField(
-                  // controller: controller.state.searchController,
+                  controller: controller.state.searchController.value,
                   onChanged: (value) {
-                    controller.state.name.value = value;
-                    print('value is :' +controller.state.name.toString());
+                    // controller.state.name.value = value;
+                    print('value is :' +
+                        controller.state.searchController.value.text
+                            .toString());
                   },
                   decoration: InputDecoration(
+                    // prefixIcon: InkWell(
+                    //   onTap: () {
+                    //     controller.state.isSearchBarOpen.toggle();
+                    //   },
+                    //   child: Icon(Icons.arrow_back),
+                    // ),
                     hintText: 'Search...',
                     border: InputBorder.none,
                   ),
@@ -99,19 +107,20 @@ class AdminView extends GetView<AdminController> {
         ),
         backgroundColor: kPrimaryColor,
         bottom: TabBar(
-          controller: controller.tabController,
-          indicatorColor: Colors.white,
-          tabs: [
-            Tab(text: 'All\nusers'),
-            Tab(text: 'Expired\nusers'),
-            Tab(text: '1 day\nleft'),
-            Tab(text: '2 days\nleft'),
-            Tab(text: '3 days\nleft'),
-          ],
-        ),
+            controller: controller.tabController,
+            indicatorColor: Colors.white,
+            tabs: [
+              Tab(text: 'All\nusers'),
+              Tab(text: 'Expired\nusers'),
+              Tab(text: '1 day\nleft'),
+              Tab(text: '2 days\nleft'),
+              Tab(text: '3 days\nleft'),
+            ]),
         actions: [
           Obx(() {
-            return IconButton(
+            return
+                // controller.state.isSearchBarOpen.value ? Container() :
+                IconButton(
               onPressed: () {
                 controller.state.isSearchBarOpen.toggle();
                 // Toggle the search bar state
@@ -121,14 +130,16 @@ class AdminView extends GetView<AdminController> {
                   : Icons.search),
             );
           }),
-          IconButton(
-              onPressed: () {
-                _showLogoutDialogue(context);
-              },
-              icon: Icon(
-                Icons.power_settings_new,
-                size: 30,
-              )),
+          Obx(() => controller.state.isSearchBarOpen.value
+              ? Container()
+              : IconButton(
+                  onPressed: () {
+                    _showLogoutDialogue(context);
+                  },
+                  icon: Icon(
+                    Icons.power_settings_new,
+                    size: 30,
+                  ))),
           SizedBox(
             width: 5,
           ),
@@ -156,20 +167,22 @@ class AdminView extends GetView<AdminController> {
       //   ],
       // ),
 
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: TabBarView(
-          controller: controller.tabController,
-          children: [
-            // Replace these with the content for each tab.
-            AllUsers(),
-            ExpiredUsers(),
-            OneDay(),
-            TwoDays(),
-            ThreeDays(),
-          ],
-        ),
-      ),
+      body: Obx(() => controller.state.isSearchBarOpen.value
+          ? Center(child: Text('Search'))
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TabBarView(
+                controller: controller.tabController,
+                children: [
+                  // Replace these with the content for each tab.
+                  AllUsers(),
+                  ExpiredUsers(),
+                  OneDay(),
+                  TwoDays(),
+                  ThreeDays(),
+                ],
+              ),
+            )),
     );
   }
 }

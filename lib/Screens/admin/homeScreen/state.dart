@@ -11,7 +11,7 @@ class AdminState {
   final passController = TextEditingController();
   final addressController = TextEditingController();
   final phoneController = TextEditingController();
-  final searchController = TextEditingController();
+  final searchController = TextEditingController().obs;
   final startDateController = TextEditingController();
   final endDateController = TextEditingController();
   DateTime selectedStartDate = DateTime.now();

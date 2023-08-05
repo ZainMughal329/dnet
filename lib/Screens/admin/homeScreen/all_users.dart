@@ -28,86 +28,12 @@ class AllUsers extends GetView<AdminController> {
                 }
                 print("snapshot.data");
                 return Expanded(
-                  child:  ListView.builder(
+                  child: ListView.builder(
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
-                        var data = snapshot.data!.docs[index].data()
-                        as Map<String, dynamic>;
-                        print('data is:' +data.toString());
-                        if (data['UserName']
-                            .toString()
-                            .toLowerCase()
-                            .startsWith(controller.state.name.toString())) {
-                          print('name:' + data['UserName']);
-                          print('object' + controller.state.name.toString());
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 2, vertical: 1),
-                            child: Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    print('object');
-                                    print('id is: ' +
-                                        snapshot.data!.docs[index].id
-                                            .toString());
-                                    Get.to(() => UpdateScreen(
-                                      id: snapshot.data!.docs[index].id
-                                          .toString(),
-                                    ));
-                                  },
-                                  child: ListTile(
-                                    tileColor: kPrimaryMediumColor,
-                                    leading: CircleAvatar(
-                                      backgroundColor: kPrimaryColor,
-                                      child: Icon(
-                                        Icons.person,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    trailing: Column(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(
-                                          Icons.speed,
-                                          color: Colors.white,
-                                          size: 30,
-                                        ),
-                                        Text(
-                                          snapshot.data!.docs[index]['pkgType']
-                                              .toString() +
-                                              " MB/s",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ],
-                                    ),
-                                    title: Text(
-                                      (snapshot.data!.docs[index]['UserName']
-                                          .toString())
-                                          .capitalizeFirst
-                                          .toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    subtitle: Text(
-                                      (snapshot.data!.docs[index]['address']
-                                          .toString())
-                                          .toUpperCase(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                        else if (controller.state.name.isEmpty) {
+                        var data = snapshot.data!.docs[index]['UserName'];
+                        print('data is:' + data.toString());
+                        if (controller.state.searchController.value.text.isEmpty) {
                           print('inside empty if');
                           return Padding(
                             padding: const EdgeInsets.symmetric(
@@ -121,9 +47,9 @@ class AllUsers extends GetView<AdminController> {
                                         snapshot.data!.docs[index].id
                                             .toString());
                                     Get.to(() => UpdateScreen(
-                                      id: snapshot.data!.docs[index].id
-                                          .toString(),
-                                    ));
+                                          id: snapshot.data!.docs[index].id
+                                              .toString(),
+                                        ));
                                   },
                                   child: ListTile(
                                     tileColor: kPrimaryMediumColor,
@@ -136,7 +62,7 @@ class AllUsers extends GetView<AdminController> {
                                     ),
                                     trailing: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Icon(
                                           Icons.speed,
@@ -145,7 +71,7 @@ class AllUsers extends GetView<AdminController> {
                                         ),
                                         Text(
                                           snapshot.data!.docs[index]['pkgType']
-                                              .toString() +
+                                                  .toString() +
                                               " MB/s",
                                           style: TextStyle(
                                               color: Colors.white,
@@ -155,7 +81,7 @@ class AllUsers extends GetView<AdminController> {
                                     ),
                                     title: Text(
                                       (snapshot.data!.docs[index]['UserName']
-                                          .toString())
+                                              .toString())
                                           .capitalizeFirst
                                           .toString(),
                                       style: TextStyle(
@@ -164,7 +90,7 @@ class AllUsers extends GetView<AdminController> {
                                     ),
                                     subtitle: Text(
                                       (snapshot.data!.docs[index]['address']
-                                          .toString())
+                                              .toString())
                                           .toUpperCase(),
                                       style: TextStyle(
                                           color: Colors.white,
@@ -175,13 +101,82 @@ class AllUsers extends GetView<AdminController> {
                               ],
                             ),
                           );
-                        }
-                        else {
+                        } else if (data.toLowerCase().contains(controller
+                            .state.searchController.value.text
+                            .toLowerCase()
+                            .toString())) {
+                          print('name:' + data.toString());
+                          print('object' + controller.state.searchController.value.text.toString());
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 2, vertical: 1),
+                            child: Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    print('object');
+                                    print('id is: ' +
+                                        snapshot.data!.docs[index].id
+                                            .toString());
+                                    Get.to(() => UpdateScreen(
+                                          id: snapshot.data!.docs[index].id
+                                              .toString(),
+                                        ));
+                                  },
+                                  child: ListTile(
+                                    tileColor: kPrimaryMediumColor,
+                                    leading: CircleAvatar(
+                                      backgroundColor: kPrimaryColor,
+                                      child: Icon(
+                                        Icons.person,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    trailing: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Icon(
+                                          Icons.speed,
+                                          color: Colors.white,
+                                          size: 30,
+                                        ),
+                                        Text(
+                                          snapshot.data!.docs[index]['pkgType']
+                                                  .toString() +
+                                              " MB/s",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
+                                    ),
+                                    title: Text(
+                                      (snapshot.data!.docs[index]['UserName']
+                                              .toString())
+                                          .capitalizeFirst
+                                          .toString(),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    subtitle: Text(
+                                      (snapshot.data!.docs[index]['address']
+                                              .toString())
+                                          .toUpperCase(),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
                           print('inside else');
                           return Container();
                         }
-
-
                       }),
                 );
               }),
