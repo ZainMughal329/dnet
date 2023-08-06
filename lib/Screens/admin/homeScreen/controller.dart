@@ -24,6 +24,7 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
   void onInit() {
     super.onInit();
     tabController = TabController(length: 5, vsync: this);
+    fetchData();
     // calculateRemainingDays();
   }
 
@@ -40,17 +41,40 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
   final auth = FirebaseAuth.instance;
   final _db = FirebaseFirestore.instance.collection('users');
 
-  final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-  final RxList<QueryDocumentSnapshot<Map<String, dynamic>>> searchResults = RxList([]);
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  RxList<DocumentSnapshot> data = RxList<DocumentSnapshot>();
+  RxList<DocumentSnapshot> filteredDataList = RxList<DocumentSnapshot>();
 
-  void searchUsers(String keyword) {
-    usersCollection
-        .where('Username', isGreaterThanOrEqualTo: keyword)
-        .where('Username', isLessThan: keyword + 'z') // To simulate a case-insensitive search
-        .snapshots()
-        .listen((QuerySnapshot<Map<String, dynamic>> querySnapshot) {
-      searchResults.assignAll(querySnapshot.docs);
-    } as void Function(QuerySnapshot<Object?> event)?);
+  void fetchData() async {
+    try {
+      var snapshot = await _firestore.collection('users').get();
+      print('Snapshot is : ' + snapshot.toString());
+      data.assignAll(snapshot.docs);
+    } catch (e) {
+      // Handle any errors that might occur during data retrieval.
+      print('Error fetching data: $e');
+    }
+  }
+
+  void search(String query) {
+    print('Inside search');
+      // Perform the search and update the data list.
+    if(query.isEmpty) {
+      print('inside search if');
+       Center(child: Text('data'));
+    }
+      else {
+      print('inside search else');
+      var filteredData = data.where((snapshot) {
+        // Customize this condition based on your Firestore document structure and search requirements.
+        print('object11');
+        String name = snapshot['UserName'].toString().toLowerCase();
+        print('Name is : ' + name.toString());
+        return name.contains(query.toLowerCase());
+      }).toList();
+      filteredDataList.assignAll(filteredData);
+    }
+      update();
   }
 
   // void startSearch() {

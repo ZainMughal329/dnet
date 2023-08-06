@@ -68,13 +68,14 @@ class AdminView extends GetView<AdminController> {
       appBar: AppBar(
         title: Obx(
           () => controller.state.isSearchBarOpen.value
-              ? TextFormField(
-                  controller: controller.state.searchController.value,
+              ? GetBuilder<AdminController>(builder: (con) {
+                return TextField(
+                  // controller: controller.state.searchController.value,
                   onChanged: (value) {
-                    // controller.state.name.value = value;
-                    print('value is :' +
-                        controller.state.searchController.value.text
-                            .toString());
+                    con.search(value);
+                    // print('value is :' +
+                    //     controller.state.searchController.value.text
+                    //         .toString());
                   },
                   decoration: InputDecoration(
                     // prefixIcon: InkWell(
@@ -86,7 +87,8 @@ class AdminView extends GetView<AdminController> {
                     hintText: 'Search...',
                     border: InputBorder.none,
                   ),
-                )
+                );
+          })
               : Center(
                   child: AnimatedTextKit(
                     animatedTexts: [
@@ -107,15 +109,16 @@ class AdminView extends GetView<AdminController> {
         ),
         backgroundColor: kPrimaryColor,
         bottom: TabBar(
-            controller: controller.tabController,
-            indicatorColor: Colors.white,
-            tabs: [
-              Tab(text: 'All\nusers'),
-              Tab(text: 'Expired\nusers'),
-              Tab(text: '1 day\nleft'),
-              Tab(text: '2 days\nleft'),
-              Tab(text: '3 days\nleft'),
-            ]),
+          controller: controller.tabController,
+          indicatorColor: Colors.white,
+          tabs: [
+            Tab(text: 'All\nusers'),
+            Tab(text: 'Expired\nusers'),
+            Tab(text: '1 day\nleft'),
+            Tab(text: '2 days\nleft'),
+            Tab(text: '3 days\nleft'),
+          ],
+        ),
         actions: [
           Obx(() {
             return
@@ -168,7 +171,70 @@ class AdminView extends GetView<AdminController> {
       // ),
 
       body: Obx(() => controller.state.isSearchBarOpen.value
-          ? Center(child: Text('Search'))
+          ? ListView.builder(
+              itemCount: controller.filteredDataList.length,
+              itemBuilder: (context, index) {
+                // Customize this part based on your data structure.
+                var item = controller.data[index];
+                return Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 2, vertical: 1),
+                  child: Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          print('object');
+                          print('id is: ' + item['id'].toString());
+                          Get.to(() => UpdateScreen(
+                                id: item['id'].toString(),
+                              ));
+                        },
+                        child: ListTile(
+                          tileColor: kPrimaryMediumColor,
+                          leading: CircleAvatar(
+                            backgroundColor: kPrimaryColor,
+                            child: Icon(
+                              Icons.person,
+                              color: Colors.white,
+                            ),
+                          ),
+                          trailing: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Icon(
+                                Icons.speed,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                              Text(
+                                item['pkgType'].toString() + " MB/s",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ],
+                          ),
+                          title: Text(
+                            (item['UserName'].toString())
+                                .capitalizeFirst
+                                .toString(),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          subtitle: Text(
+                            (item['address'].toString()).toUpperCase(),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            )
           : Padding(
               padding: const EdgeInsets.all(8.0),
               child: TabBarView(
