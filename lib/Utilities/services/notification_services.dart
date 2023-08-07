@@ -82,7 +82,7 @@ class NotificationServices {
 
   Future<void> setNotificationDetails() async{
     AndroidNotificationChannel channle = AndroidNotificationChannel(
-      Random.secure().nextInt(1000).toString(),
+      1.toString(),
       // 1.toString(),
       "High Importance Notification",
       importance: Importance.max,

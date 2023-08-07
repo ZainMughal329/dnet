@@ -102,6 +102,22 @@ class ExpiredUsers extends GetView<AdminController> {
                 }
                 return Text('');
               }),
+          Obx((){
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: ElevatedButton(onPressed: (){
+                controller.sendNotification('expired');
+
+              }, child: Container(
+                child: Center(
+                  child:  controller.state.notificationLoading == true ?
+                  CircularProgressIndicator(color: Colors.white,) :
+                  Text("Send Notification"),
+
+                ),
+              )),
+            );
+          })
         ],
       )),
     );

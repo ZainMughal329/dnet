@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 class AdminState {
 
   final dbref = FirebaseFirestore.instance.collection("users").snapshots();
+  final db = FirebaseFirestore.instance.collection("users");
   final emailController = TextEditingController();
   final nameController = TextEditingController();
   final passController = TextEditingController();
@@ -21,6 +22,7 @@ class AdminState {
   final  package = "".obs;
   RxBool loading = false.obs;
   RxBool logoutLoading =false.obs;
+  RxBool notificationLoading = false.obs;
 
   RxInt remainingDays = 0.obs;
   Rx<DateTime> startDateTime = Rx<DateTime>(DateTime.now());

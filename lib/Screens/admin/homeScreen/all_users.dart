@@ -51,6 +51,7 @@ class AllUsers extends GetView<AdminController> {
                                         ));
                                   },
                                   child: ListTile(
+                                    // style: ListTileStyle.drawer,
                                     tileColor: kPrimaryMediumColor,
                                     leading: CircleAvatar(
                                       backgroundColor: kPrimaryColor,
@@ -104,6 +105,22 @@ class AllUsers extends GetView<AdminController> {
                       }),
                 );
               }),
+          Obx((){
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: ElevatedButton(onPressed: (){
+                controller.sendNotification('all');
+
+              }, child: Container(
+                child: Center(
+                  child:  controller.state.notificationLoading == true ?
+                  CircularProgressIndicator(color: Colors.white,) :
+                  Text("Send Notification"),
+
+                ),
+              )),
+            );
+          })
         ],
       )),
     );

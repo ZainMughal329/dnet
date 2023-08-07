@@ -44,6 +44,7 @@ dependencies:
   cloud_firestore:
   get:
   intl:
+  http:
   firebase_auth:
   fluttertoast:
   shared_preferences:
