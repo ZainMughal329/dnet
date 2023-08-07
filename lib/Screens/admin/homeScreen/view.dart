@@ -69,26 +69,26 @@ class AdminView extends GetView<AdminController> {
         title: Obx(
           () => controller.state.isSearchBarOpen.value
               ? GetBuilder<AdminController>(builder: (con) {
-                return TextField(
-                  // controller: controller.state.searchController.value,
-                  onChanged: (value) {
-                    con.search(value);
-                    // print('value is :' +
-                    //     controller.state.searchController.value.text
-                    //         .toString());
-                  },
-                  decoration: InputDecoration(
-                    // prefixIcon: InkWell(
-                    //   onTap: () {
-                    //     controller.state.isSearchBarOpen.toggle();
-                    //   },
-                    //   child: Icon(Icons.arrow_back),
-                    // ),
-                    hintText: 'Search...',
-                    border: InputBorder.none,
-                  ),
-                );
-          })
+                  return TextField(
+                    // controller: controller.state.searchController.value,
+                    onChanged: (value) {
+                      con.search(value);
+                      // print('value is :' +
+                      //     controller.state.searchController.value.text
+                      //         .toString());
+                    },
+                    decoration: InputDecoration(
+                      // prefixIcon: InkWell(
+                      //   onTap: () {
+                      //     controller.state.isSearchBarOpen.toggle();
+                      //   },
+                      //   child: Icon(Icons.arrow_back),
+                      // ),
+                      hintText: 'Search...',
+                      border: InputBorder.none,
+                    ),
+                  );
+                })
               : Center(
                   child: AnimatedTextKit(
                     animatedTexts: [
@@ -131,6 +131,17 @@ class AdminView extends GetView<AdminController> {
               icon: Icon(controller.state.isSearchBarOpen.value == true
                   ? Icons.close
                   : Icons.search),
+              // icon: controller.state.isSearchBarOpen.value == true
+              //     ? IconButton(
+              //         onPressed: () {
+              //           controller.filteredDataList.clear();
+              //           controller.data.clear();
+              //         },
+              //         icon: Icon(Icons.close))
+              //     : IconButton(
+              //         onPressed: () {},
+              //         icon: Icon(Icons.search),
+              //       ),
             );
           }),
           Obx(() => controller.state.isSearchBarOpen.value
@@ -174,8 +185,11 @@ class AdminView extends GetView<AdminController> {
           ? ListView.builder(
               itemCount: controller.filteredDataList.length,
               itemBuilder: (context, index) {
+                print('Length is :' +
+                    controller.filteredDataList.length.toString());
                 // Customize this part based on your data structure.
                 var item = controller.data[index];
+                print('Item is : ' + item.toString());
                 return Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 2, vertical: 1),
