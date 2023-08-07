@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:math';
+// import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -46,7 +48,8 @@ class NotificationServices {
     });
   }
 
-  void initLocalNotification(BuildContext context, RemoteMessage message) async {
+  void initLocalNotification(
+      BuildContext context, RemoteMessage message) async {
     var androidInitializationSetting =
         AndroidInitializationSettings('@mipmap/ic_launcher');
     var iosInitializationSetting = DarwinInitializationSettings();
@@ -61,7 +64,7 @@ class NotificationServices {
   void FirebaseInit(BuildContext context) {
     FirebaseMessaging.onMessage.listen((event) {
       if (Platform.isAndroid) {
-        initLocalNotification(context,event);
+        initLocalNotification(context, event);
         showNotification(event);
       }
       ;
@@ -70,7 +73,7 @@ class NotificationServices {
 
   void showNotification(RemoteMessage message) {
     setNotificationDetails();
-    Future.delayed(Duration(seconds: 0),(){
+    Future.delayed(Duration(seconds: 0), () {
       _flutterLocalNotificationsPlugin.show(
         0,
         message.notification!.title.toString(),
@@ -80,7 +83,22 @@ class NotificationServices {
     });
   }
 
-  Future<void> setNotificationDetails() async{
+  Future<void> showSheduleNotification(
+      {int id = 0,
+      String? title,
+      String? body,
+      String? payload,
+      required DateTime sheduledTime}) async {
+    await setNotificationDetails();
+    _flutterLocalNotificationsPlugin.zonedSchedule(id, title, body,
+        tz.TZDateTime.from(sheduledTime, tz.local),
+        notificationDetails!,
+        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+    );
+
+  }
+
+  Future<void> setNotificationDetails() async {
     AndroidNotificationChannel channle = AndroidNotificationChannel(
       1.toString(),
       // 1.toString(),

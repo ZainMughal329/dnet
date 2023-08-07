@@ -8,6 +8,7 @@ import 'package:d_net/Utilities/Routes/routesNames.dart';
 import 'package:d_net/Utilities/services/notification_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class UserController extends GetxController {
   UserController();
@@ -15,6 +16,7 @@ class UserController extends GetxController {
   final auth = FirebaseAuth.instance;
   late Timer _timer;
   final state = UserState();
+
 
   void onInit() {
     super.onInit();
@@ -109,5 +111,45 @@ class UserController extends GetxController {
   void initializeNotification(context){
     NotificationServices().FirebaseInit(context);
   }
+  void initializeLocalNotification() async{
+
+    // await  FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(auth.currentUser!.uid.toString())
+    //     .snapshots()
+    //     .listen((doc) {
+    //   Timestamp timestamp = doc
+    //       .data()!['pkgEndDate'];
+    //    dateTime = timestamp.toDate();
+    // }
+    //   );
+
+
+    await FirebaseFirestore.instance.collection('users').doc(
+      auth.currentUser!.uid.toString()
+    ).get().then((documentSnapshot){
+      if (documentSnapshot.exists) {
+        String timestamp = documentSnapshot.data()!['pkgEndDate']; // replace 'your_date_field' with your actual date field name
+        final format = DateFormat("yyyy-MM-dd HH:mm:ss.S");
+
+        // Convert String to DateTime
+        DateTime dateTime = format.parse(timestamp);
+
+        print('Date and Time: $dateTime');
+        NotificationServices().showSheduleNotification(
+          title: "Dubai Sky Net",
+          body: "Pay Your Bill to enjoy LimitLess \nInternet Connectivity",
+          sheduledTime: dateTime,
+        );
+      } else {
+        print('Document does not exist on the database');
+      }
+
+    });
+
+
+
+  }
 
 }
+

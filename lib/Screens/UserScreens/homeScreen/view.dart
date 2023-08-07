@@ -13,6 +13,7 @@ class UserView extends GetView<UserController> {
     controller.chkNotifications();
     controller.updateToken();
     controller.initializeNotification(context);
+    controller.initializeLocalNotification();
     return Scaffold(
       appBar: AppBar(
         title: Text('UserView'),
