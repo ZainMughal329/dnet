@@ -62,23 +62,30 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
   void search(String query) {
     print('Inside search');
     // Perform the search and update the data list.
-    if (query.isEmpty) {
-      print('inside search if');
-      Center(child: Text('data'));
-    } else {
-      print('inside search else');
-      var filteredData = data.where((snapshot) {
-        // Customize this condition based on your Firestore document structure and search requirements.
-        print('object11');
-        String name = snapshot['Email'].toString().toLowerCase();
-        print('Name is : ' + name.toString());
-        print('Contains :' + name.contains(query.toLowerCase()).toString());
-        return name.contains(query.toLowerCase());
-      }).toList();
-      filteredDataList.assignAll(filteredData);
-      print('Filter list is : ' + filteredDataList.toString());
+    // if (query.isEmpty) {
+    //   print('inside search if');
+    //   Center(child: Text('data'));
+    // } else {
+    //   print('inside search else');
+    //   var filteredData = data.where((snapshot) {
+    //     // Customize this condition based on your Firestore document structure and search requirements.
+    //     print('object11');
+    //     String name = snapshot['Email'].toString().toLowerCase();
+    //     print('Name is : ' + name.toString());
+    //     print('Contains :' + name.contains(query.toLowerCase()).toString());
+    //     return name.contains(query.toLowerCase());
+    //   }).toList();
+    //   filteredDataList.assignAll(filteredData);
+    //   print('Filter list is : ' + filteredDataList.toString());
+    // }
+    // update();
+    List<DocumentSnapshot> results = [];
+    if(query.isEmpty) {
+      results = data;
+    }else {
+      results = data.where((ele) => ele['UserName'].toString().toLowerCase().contains(query.toLowerCase())).toList();
     }
-    update();
+    filteredDataList.value = results;
   }
 
   // void startSearch() {

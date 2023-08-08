@@ -188,7 +188,7 @@ class AdminView extends GetView<AdminController> {
                 print('Length is :' +
                     controller.filteredDataList.length.toString());
                 // Customize this part based on your data structure.
-                var item = controller.data[index];
+                var item = controller.filteredDataList[index];
                 print('Item is : ' + item.toString());
                 return Padding(
                   padding:
