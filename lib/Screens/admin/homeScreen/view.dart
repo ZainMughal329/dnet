@@ -93,7 +93,7 @@ class AdminView extends GetView<AdminController> {
                   child: AnimatedTextKit(
                     animatedTexts: [
                       TypewriterAnimatedText(
-                        "Dream Net",
+                        "Dubai Sky Net",
                         speed: Duration(milliseconds: 550),
                         textStyle: TextStyle(
                           fontSize: 32.0,

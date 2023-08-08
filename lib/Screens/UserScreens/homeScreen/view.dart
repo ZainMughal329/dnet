@@ -16,7 +16,7 @@ class UserView extends GetView<UserController> {
     controller.initializeLocalNotification();
     return Scaffold(
       appBar: AppBar(
-        title: Text('UserView'),
+        title: Text("'Dubai Sky Net's User"),
         backgroundColor: kPrimaryColor,
         // actions: [
         //   IconButton(

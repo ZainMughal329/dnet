@@ -21,7 +21,7 @@ class SplashScreen extends GetView<SplashController> {
             SizedBox(height: 20),
             AnimatedTextKit(
               animatedTexts: [
-                TypewriterAnimatedText('Dream Net',
+                TypewriterAnimatedText('Dubai Sky Net',
                     speed: Duration(milliseconds: 200),
 
                     textStyle: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold)
