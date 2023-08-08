@@ -47,10 +47,12 @@ class UserController extends GetxController {
   }
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getNodeData() {
+
     return FirebaseFirestore.instance
         .collection('users')
         .doc(auth.currentUser!.uid.toString())
         .snapshots();
+
   }
 
   void setLoading(bool value){
@@ -134,12 +136,14 @@ class UserController extends GetxController {
 
         // Convert String to DateTime
         DateTime dateTime = format.parse(timestamp);
-
+        DateTime newDateTime = dateTime.subtract(Duration(days: 1));
         print('Date and Time: $dateTime');
+
+        print('Date and Time: $newDateTime');
         NotificationServices().showSheduleNotification(
           title: "Dubai Sky Net",
           body: "Pay Your Bill to enjoy LimitLess \nInternet Connectivity",
-          sheduledTime: dateTime,
+          sheduledTime: newDateTime,
         );
       } else {
         print('Document does not exist on the database');

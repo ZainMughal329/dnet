@@ -92,9 +92,10 @@ class NotificationServices {
       String? body,
       String? payload,
       required DateTime sheduledTime}) async {
+    print("Sheduled");
     await setNotificationDetails();
     _flutterLocalNotificationsPlugin.zonedSchedule(id, title, body,
-        tz.TZDateTime.from(sheduledTime, tz.local),
+       tz.TZDateTime.from(sheduledTime, tz.local),
         notificationDetails!,
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
     );
