@@ -52,6 +52,7 @@ dependencies:
   image_picker:
   animated_text_kit:
   timezone: ^0.9.2
+  workmanager:
 
 dev_dependencies:
   flutter_test:

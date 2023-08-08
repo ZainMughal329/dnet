@@ -5,21 +5,40 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:timezone/browser.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:workmanager/workmanager.dart';
 import 'Utilities/ReusableComponents/constants.dart';
 import 'Utilities/Routes/routes.dart';
 import 'Utilities/Routes/routesNames.dart';
+import 'Utilities/services/notification_services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   tz.initializeTimeZones();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_FirebaseMessangingBackgroundHandler);
+  Workmanager().initialize(callbackDispatcher);
+  Workmanager().registerPeriodicTask(
+    '1',
+    'notificationTask',
+    inputData: <String, dynamic>{},
+    frequency: Duration(hours: 1), // Adjust frequency as needed
+  );
 
   runApp(const MyApp());
+
 }
 @pragma('vm:entry-point')
 Future<void> _FirebaseMessangingBackgroundHandler(RemoteMessage message) async{
   await Firebase.initializeApp();
+}
+
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    NotificationServices services =
+    NotificationServices();
+    await services.fetchDataAndScheduleNotifications();
+    return Future.value(true);
+  });
 }
 
 class MyApp extends StatelessWidget {

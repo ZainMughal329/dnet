@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 // import 'package:timezone/data/latest.dart' as tz;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 import 'package:app_settings/app_settings.dart';
@@ -10,6 +11,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   NotificationDetails? notificationDetails;
@@ -126,4 +129,28 @@ class NotificationServices {
       iOS: darwinNotificationDetails,
     );
   }
+
+  Future<void> fetchDataAndScheduleNotifications() async {
+    try {
+      QuerySnapshot querySnapshot = await firestore.collection('users').get();
+      querySnapshot.docs.forEach((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        DateTime endDate = data['pkgEndDate'].toDate();
+        if (endDate.isAfter(DateTime.now()) &&
+            endDate.difference(DateTime.now()).inDays <= 1) {
+          // String billTitle = data['billTitle'];
+          String notificationTitle = 'Reminder: Pay Your Bill';
+          String notificationBody = 'You have a bill due for';
+          showSheduleNotification(
+            sheduledTime: endDate,
+            title: notificationTitle,
+            body: notificationBody,
+          );
+        }
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+  }
+
 }
