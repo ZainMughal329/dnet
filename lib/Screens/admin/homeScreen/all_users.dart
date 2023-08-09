@@ -45,10 +45,49 @@ class AllUsers extends GetView<AdminController> {
                                   print('object');
                                   print('id is: ' +
                                       snapshot.data!.docs[index].id.toString());
-                                  Get.to(() => UpdateScreen(
-                                        id: snapshot.data!.docs[index].id
-                                            .toString(),
-                                      ));
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content: Container(
+                                          height: 115,
+                                          child: Column(
+                                            children: [
+                                              ListTile(
+                                                onTap: () {
+                                                  // pickedImageFromGallery(context);
+                                                  controller.deleteUser(
+                                                    snapshot
+                                                        .data!.docs[index].id
+                                                        .toString(),
+                                                  );
+                                                  Navigator.pop(context);
+                                                },
+                                                leading: Icon(Icons.delete),
+                                                title: Text('Delete'),
+                                              ),
+                                              ListTile(
+                                                onTap: () {
+                                                  // pickedImageFromCamera(context);
+                                                  Navigator.pop(context);
+                                                  Get.to(
+                                                    () => UpdateScreen(
+                                                      id: snapshot
+                                                          .data!.docs[index].id
+                                                          .toString(),
+                                                    ),
+                                                  );
+                                                  print('heloo');
+                                                },
+                                                leading: Icon(Icons.edit),
+                                                title: Text('Edit'),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
                                 },
                                 child: ListTile(
                                   tileColor: kPrimaryMediumColor,
@@ -103,24 +142,24 @@ class AllUsers extends GetView<AdminController> {
                       }),
                 );
               }),
-          Obx(() {
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ElevatedButton(
-                  onPressed: () {
-                    controller.sendNotification('all');
-                  },
-                  child: Container(
-                    child: Center(
-                      child: controller.state.notificationLoading == true
-                          ? CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : Text("Send Notification"),
-                    ),
-                  )),
-            );
-          })
+          // Obx(() {
+          //   return Padding(
+          //     padding: const EdgeInsets.symmetric(vertical: 8.0),
+          //     child: ElevatedButton(
+          //         onPressed: () {
+          //           controller.sendNotification('all');
+          //         },
+          //         child: Container(
+          //           child: Center(
+          //             child: controller.state.notificationLoading == true
+          //                 ? CircularProgressIndicator(
+          //                     color: Colors.white,
+          //                   )
+          //                 : Text("Send Notification"),
+          //           ),
+          //         )),
+          //   );
+          // })
         ],
       )),
     );

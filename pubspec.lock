@@ -733,14 +733,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
-  wp_search_bar:
-    dependency: "direct main"
-    description:
-      name: wp_search_bar
-      sha256: "9cca5b628a50d9bb3833e73606781f6a52f14668db8fca7c36f9fc631438641b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.4"
   xdg_directories:
     dependency: transitive
     description:
