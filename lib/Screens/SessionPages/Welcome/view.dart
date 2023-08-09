@@ -13,7 +13,6 @@ class WelcomeScreen extends StatelessWidget {
       child: SingleChildScrollView(
         child: SafeArea(
           child: const MobileWelcomeScreen(),
-
         ),
       ),
     );

@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../Utilities/ReusableComponents/constants.dart';
 
-
 class SocalIcon extends StatelessWidget {
   final String? iconSrc;
   final Function? press;

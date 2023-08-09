@@ -7,7 +7,6 @@ import 'package:d_net/Utilities/services/notification_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class SignInController extends GetxController {
   final state = SignState();
@@ -21,7 +20,6 @@ class SignInController extends GetxController {
     state.loading.value = value;
   }
 
-
   void handleSignIn(String email, password) async {
     state.token = await NotificationServices().getDeviceToken();
 
@@ -34,18 +32,17 @@ class SignInController extends GetxController {
         print('id is  : ' + auth.currentUser!.uid.toString());
         ref.collection('users').doc(auth.currentUser!.uid.toString()).set(
               UserModel(
-                      id: auth.currentUser!.uid.toString(),
-                      email: state.emailController.text.toString(),
-                      phoneNo: state.phoneController.text.toString(),
-                      username: state.nameController.text.toString(),
-                      pkgStartDate: state.selectedStartDate.toString(),
-                      pkgEndDate: state.selectedEndDate.toString(),
-                      pkgType: state.package.toString(),
-                      password: state.passController.text.toString(),
-              address: state.addressController.text.toString(),
+                id: auth.currentUser!.uid.toString(),
+                email: state.emailController.text.toString(),
+                phoneNo: state.phoneController.text.toString(),
+                username: state.nameController.text.toString(),
+                pkgStartDate: state.selectedStartDate.toString(),
+                pkgEndDate: state.selectedEndDate.toString(),
+                pkgType: state.package.toString(),
+                password: state.passController.text.toString(),
+                address: state.addressController.text.toString(),
                 deviceToken: state.token.toString(),
-              )
-                  .toJson(),
+              ).toJson(),
             );
         Utils.showToast('Account Created');
         Get.offAllNamed(RoutesNames.userScreen);
@@ -90,5 +87,4 @@ class SignInController extends GetxController {
       print('Null or something else');
     }
   }
-
 }

@@ -5,7 +5,6 @@ import 'package:d_net/Screens/UserScreens/homeScreen/bindings.dart';
 import 'package:d_net/Screens/admin/homeScreen/bindings.dart';
 import 'package:d_net/Screens/admin/homeScreen/view.dart';
 import 'package:d_net/Screens/admin/userDetails/index.dart';
-// import 'package:d_net/Screens/admin/view.dart';
 import 'package:d_net/Utilities/Routes/routesNames.dart';
 import 'package:get/get.dart';
 

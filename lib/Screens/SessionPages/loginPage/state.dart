@@ -6,7 +6,4 @@ class loginState {
   final passController = TextEditingController();
   RxBool loading = false.obs;
   String? token;
-
-
-
 }

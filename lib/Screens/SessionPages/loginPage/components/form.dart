@@ -57,7 +57,8 @@ class LoginForm extends GetView<loginController> {
                 onPressed: () {
                   if (controller.state.emailController.text.trim().toString() ==
                           "rehandreamnet@gmail.com" &&
-                      controller.state.passController.text.trim().toString() == "rehan@123") {
+                      controller.state.passController.text.trim().toString() ==
+                          "rehan@123") {
                     controller.setLoading(true);
                     sharedPrefrences().setAdminLogin(true).then((value) {
                       controller.setLoading(false);

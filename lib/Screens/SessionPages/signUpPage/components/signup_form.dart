@@ -89,7 +89,7 @@ class SignUpForm extends GetView<SignInController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: defaultPadding/2),
+            padding: const EdgeInsets.symmetric(vertical: defaultPadding / 2),
             child: TextFormField(
               controller: controller.state.emailController,
               textInputAction: TextInputAction.next,
@@ -105,7 +105,7 @@ class SignUpForm extends GetView<SignInController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: defaultPadding/4),
+            padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
             child: TextFormField(
               controller: controller.state.passController,
               textInputAction: TextInputAction.next,
@@ -121,7 +121,7 @@ class SignUpForm extends GetView<SignInController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: defaultPadding/4),
+            padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
             child: TextFormField(
               controller: controller.state.phoneController,
               textInputAction: TextInputAction.next,
@@ -137,7 +137,7 @@ class SignUpForm extends GetView<SignInController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: defaultPadding/4),
+            padding: const EdgeInsets.symmetric(vertical: defaultPadding / 4),
             child: TextFormField(
               controller: controller.state.addressController,
               textInputAction: TextInputAction.next,
@@ -153,7 +153,7 @@ class SignUpForm extends GetView<SignInController> {
             ),
           ),
           Padding(
-            padding : EdgeInsets.symmetric(vertical: defaultPadding/4),
+            padding: EdgeInsets.symmetric(vertical: defaultPadding / 4),
             child: Row(
               children: [
                 Expanded(
@@ -169,7 +169,10 @@ class SignUpForm extends GetView<SignInController> {
                             controller.state.selectedStartDate,
                           ),
                           suffixIcon: IconButton(
-                            icon: Icon(Icons.calendar_today_outlined , color: kPrimaryColor,),
+                            icon: Icon(
+                              Icons.calendar_today_outlined,
+                              color: kPrimaryColor,
+                            ),
                             onPressed: () {
                               print('Hi there');
                               con.getDateFromUser(context);
@@ -180,7 +183,9 @@ class SignUpForm extends GetView<SignInController> {
                     );
                   }),
                 ),
-                SizedBox(width: 7.0,),
+                SizedBox(
+                  width: 7.0,
+                ),
                 Expanded(
                   child: GetBuilder<SignInController>(
                     builder: (con) {
@@ -194,7 +199,8 @@ class SignUpForm extends GetView<SignInController> {
                               controller.state.selectedEndDate,
                             ),
                             suffixIcon: IconButton(
-                              icon: Icon(Icons.calendar_today_outlined , color: kPrimaryColor),
+                              icon: Icon(Icons.calendar_today_outlined,
+                                  color: kPrimaryColor),
                               onPressed: () {
                                 print('Hi there');
                                 con.getEndDateFromUser(context);
@@ -210,7 +216,7 @@ class SignUpForm extends GetView<SignInController> {
             ),
           ),
           Padding(
-            padding : EdgeInsets.symmetric(vertical: defaultPadding/4),
+            padding: EdgeInsets.symmetric(vertical: defaultPadding / 4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -223,17 +229,23 @@ class SignUpForm extends GetView<SignInController> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: 10,
+                        ),
                         Text(
                           "Package",
                           style: TextStyle(
-                            // decoration: TextDecoration.underline,
+                              // decoration: TextDecoration.underline,
                               fontSize: 16,
                               color: Colors.grey.shade700),
                         ),
-
-                        SizedBox(width: 50,),
-                        Icon(Icons.shopping_bag_outlined,color: kPrimaryColor,),
+                        SizedBox(
+                          width: 50,
+                        ),
+                        Icon(
+                          Icons.shopping_bag_outlined,
+                          color: kPrimaryColor,
+                        ),
                       ],
                     ),
                   ),
@@ -246,7 +258,6 @@ class SignUpForm extends GetView<SignInController> {
                     // )
                   ),
                 ),
-
                 _buildPackageList(),
               ],
             ),

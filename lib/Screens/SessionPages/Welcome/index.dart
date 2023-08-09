@@ -1,6 +1,6 @@
 library splashScreen;
 
-export './controller.dart';
 export './bindings.dart';
-export './view.dart';
+export './controller.dart';
 export './state.dart';
+export './view.dart';

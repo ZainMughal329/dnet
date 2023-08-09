@@ -14,7 +14,6 @@ class ExpiredUsers extends GetView<AdminController> {
           child: Column(
         children: [
           StreamBuilder<QuerySnapshot>(
-              // stream: controller.state.dbref,
               stream:
                   FirebaseFirestore.instance.collection("users").snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -102,20 +101,22 @@ class ExpiredUsers extends GetView<AdminController> {
                 }
                 return Text('');
               }),
-          Obx((){
+          Obx(() {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ElevatedButton(onPressed: (){
-                controller.sendNotification('expired');
-
-              }, child: Container(
-                child: Center(
-                  child:  controller.state.notificationLoading == true ?
-                  CircularProgressIndicator(color: Colors.white,) :
-                  Text("Send Notification"),
-
-                ),
-              )),
+              child: ElevatedButton(
+                  onPressed: () {
+                    controller.sendNotification('expired');
+                  },
+                  child: Container(
+                    child: Center(
+                      child: controller.state.notificationLoading == true
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text("Send Notification"),
+                    ),
+                  )),
             );
           })
         ],

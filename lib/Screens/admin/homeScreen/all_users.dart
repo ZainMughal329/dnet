@@ -15,7 +15,8 @@ class AllUsers extends GetView<AdminController> {
           child: Column(
         children: [
           StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection("users").snapshots(),
+              stream:
+                  FirebaseFirestore.instance.collection("users").snapshots(),
               builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   print('Waiting..');
@@ -34,91 +35,90 @@ class AllUsers extends GetView<AdminController> {
                         var data = snapshot.data!.docs[index]['UserName'];
                         print('data is:' + data.toString());
 
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 2, vertical: 1),
-                            child: Column(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    print('object');
-                                    print('id is: ' +
-                                        snapshot.data!.docs[index].id
-                                            .toString());
-                                    Get.to(() => UpdateScreen(
-                                          id: snapshot.data!.docs[index].id
-                                              .toString(),
-                                        ));
-                                  },
-                                  child: ListTile(
-                                    // style: ListTileStyle.drawer,
-                                    tileColor: kPrimaryMediumColor,
-                                    leading: CircleAvatar(
-                                      backgroundColor: kPrimaryColor,
-                                      child: Icon(
-                                        Icons.person,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    trailing: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(
-                                          Icons.speed,
-                                          color: Colors.white,
-                                          size: 30,
-                                        ),
-                                        Text(
-                                          snapshot.data!.docs[index]['pkgType']
-                                                  .toString() +
-                                              " MB/s",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ],
-                                    ),
-                                    title: Text(
-                                      (snapshot.data!.docs[index]['UserName']
-                                              .toString())
-                                          .capitalizeFirst
-                                          .toString(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    subtitle: Text(
-                                      (snapshot.data!.docs[index]['address']
-                                              .toString())
-                                          .toUpperCase(),
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600),
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 2, vertical: 1),
+                          child: Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  print('object');
+                                  print('id is: ' +
+                                      snapshot.data!.docs[index].id.toString());
+                                  Get.to(() => UpdateScreen(
+                                        id: snapshot.data!.docs[index].id
+                                            .toString(),
+                                      ));
+                                },
+                                child: ListTile(
+                                  tileColor: kPrimaryMediumColor,
+                                  leading: CircleAvatar(
+                                    backgroundColor: kPrimaryColor,
+                                    child: Icon(
+                                      Icons.person,
+                                      color: Colors.white,
                                     ),
                                   ),
+                                  trailing: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Icon(
+                                        Icons.speed,
+                                        color: Colors.white,
+                                        size: 30,
+                                      ),
+                                      Text(
+                                        snapshot.data!.docs[index]['pkgType']
+                                                .toString() +
+                                            " MB/s",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ],
+                                  ),
+                                  title: Text(
+                                    (snapshot.data!.docs[index]['UserName']
+                                            .toString())
+                                        .capitalizeFirst
+                                        .toString(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  subtitle: Text(
+                                    (snapshot.data!.docs[index]['address']
+                                            .toString())
+                                        .toUpperCase(),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
-                              ],
-                            ),
-                          );
-
+                              ),
+                            ],
+                          ),
+                        );
                       }),
                 );
               }),
-          Obx((){
+          Obx(() {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ElevatedButton(onPressed: (){
-                controller.sendNotification('all');
-
-              }, child: Container(
-                child: Center(
-                  child:  controller.state.notificationLoading == true ?
-                  CircularProgressIndicator(color: Colors.white,) :
-                  Text("Send Notification"),
-
-                ),
-              )),
+              child: ElevatedButton(
+                  onPressed: () {
+                    controller.sendNotification('all');
+                  },
+                  child: Container(
+                    child: Center(
+                      child: controller.state.notificationLoading == true
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text("Send Notification"),
+                    ),
+                  )),
             );
           })
         ],

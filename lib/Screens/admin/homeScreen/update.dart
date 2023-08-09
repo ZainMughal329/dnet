@@ -1,6 +1,4 @@
-import 'package:d_net/Screens/admin/homeScreen/view.dart';
 import 'package:d_net/Utilities/ReusableComponents/constants.dart';
-import 'package:d_net/Utilities/Routes/routesNames.dart';
 import 'package:d_net/Utilities/models/userModel.dart';
 import 'package:d_net/Utilities/services/notification_services.dart';
 import 'package:flutter/material.dart';
@@ -16,16 +14,12 @@ class UpdateScreen extends GetView<AdminController> {
 
   Widget _buildPackageList(String pkg) {
     return Obx(
-          () => Expanded(
+      () => Expanded(
         flex: 0,
         child: DropdownButton(
           iconEnabledColor: kPrimaryColor,
           dropdownColor: kPrimaryLightColor,
-
           borderRadius: BorderRadius.circular(10),
-          // isDense: true,
-          // isExpanded: true,
-          // iconSize: 40,
           hint: controller.state.package.value == ""
               ? Text(pkg)
               : Text(controller.state.package.value),
@@ -125,7 +119,8 @@ class UpdateScreen extends GetView<AdminController> {
                         // decoration: InputDecoration(labelText: 'Full Name'),
                       ),
                       Padding(
-                        padding : EdgeInsets.symmetric(vertical: defaultPadding/2),
+                        padding:
+                            EdgeInsets.symmetric(vertical: defaultPadding / 2),
                         child: TextFormField(
                           controller: email,
                           readOnly: true,
@@ -138,15 +133,14 @@ class UpdateScreen extends GetView<AdminController> {
                               child: Icon(Icons.email_outlined),
                             ),
                           ),
-                          // decoration: InputDecoration(labelText: 'Email'),
                           keyboardType: TextInputType.emailAddress,
                         ),
                       ),
                       Padding(
-                        padding : EdgeInsets.symmetric(vertical: defaultPadding/4),
+                        padding:
+                            EdgeInsets.symmetric(vertical: defaultPadding / 4),
                         child: TextFormField(
                           controller: pass,
-                          // decoration: InputDecoration(labelText: 'Password'),
                           readOnly: true,
                           obscureText: true,
                           textInputAction: TextInputAction.next,
@@ -161,11 +155,11 @@ class UpdateScreen extends GetView<AdminController> {
                         ),
                       ),
                       Padding(
-                        padding : EdgeInsets.symmetric(vertical: defaultPadding/4),
+                        padding:
+                            EdgeInsets.symmetric(vertical: defaultPadding / 4),
                         child: TextFormField(
                           controller: phone,
                           readOnly: true,
-                          // decoration: InputDecoration(labelText: 'Phone Number'),
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
                           // obscureText: true,
@@ -179,12 +173,12 @@ class UpdateScreen extends GetView<AdminController> {
                         ),
                       ),
                       Padding(
-                        padding : EdgeInsets.symmetric(vertical: defaultPadding/4),
+                        padding:
+                            EdgeInsets.symmetric(vertical: defaultPadding / 4),
                         child: TextFormField(
                           controller: add,
 
                           readOnly: true,
-                          // decoration: InputDecoration(labelText: 'Address'),
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.next,
                           // obscureText: true,
@@ -198,26 +192,28 @@ class UpdateScreen extends GetView<AdminController> {
                         ),
                       ),
                       Padding(
-                        padding : EdgeInsets.symmetric(vertical: defaultPadding/4),
+                        padding:
+                            EdgeInsets.symmetric(vertical: defaultPadding / 4),
                         child: Row(
                           children: [
                             Expanded(
-                              child: GetBuilder<AdminController>(builder: (con) {
+                              child:
+                                  GetBuilder<AdminController>(builder: (con) {
                                 return TextFormField(
                                   controller:
                                       controller.state.startDateController,
                                   textInputAction: TextInputAction.next,
-                                  // obscureText: true,
                                   cursorColor: kPrimaryColor,
                                   decoration: InputDecoration(
-                                      // label: Text('Start date'),
-
-                                      // labelText: 'Start Date',
                                       hintText: DateFormat.yMMMMd().format(
-                                        DateTime.parse(controller.state.selectedStartDate.toString()),
+                                        DateTime.parse(controller
+                                            .state.selectedStartDate
+                                            .toString()),
                                       ),
                                       suffixIcon: IconButton(
-                                        icon: Icon(Icons.calendar_today_outlined , color: kPrimaryColor),
+                                        icon: Icon(
+                                            Icons.calendar_today_outlined,
+                                            color: kPrimaryColor),
                                         onPressed: () {
                                           print('Hi there');
                                           con.updateStartDate(context);
@@ -228,23 +224,27 @@ class UpdateScreen extends GetView<AdminController> {
                                 );
                               }),
                             ),
-                            SizedBox(width: 7.0,),
+                            SizedBox(
+                              width: 7.0,
+                            ),
                             Expanded(
-                              child: GetBuilder<AdminController>(builder: (con) {
+                              child:
+                                  GetBuilder<AdminController>(builder: (con) {
                                 return TextFormField(
-                                  controller: controller.state.endDateController,
+                                  controller:
+                                      controller.state.endDateController,
                                   textInputAction: TextInputAction.next,
                                   // obscureText: true,
                                   cursorColor: kPrimaryColor,
                                   decoration: InputDecoration(
-                                      // label: Text('End Date' , style: TextStyle(color: kPrimaryColor),),
-
-                                      // labelText: 'Start Date',
-                                      hintText:DateFormat.yMMMMd().format(
+                                      hintText: DateFormat.yMMMMd().format(
                                         controller.state.selectedEndDate,
                                       ),
                                       suffixIcon: IconButton(
-                                        icon: Icon(Icons.calendar_today_outlined , color: kPrimaryColor,),
+                                        icon: Icon(
+                                          Icons.calendar_today_outlined,
+                                          color: kPrimaryColor,
+                                        ),
                                         onPressed: () {
                                           print('Hi there');
                                           con.updateEndDate(context);
@@ -259,47 +259,49 @@ class UpdateScreen extends GetView<AdminController> {
                         ),
                       ),
                       Padding(
-                        padding : EdgeInsets.symmetric(vertical: defaultPadding/4),
+                        padding:
+                            EdgeInsets.symmetric(vertical: defaultPadding / 4),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              // height: 20,
-                              // width: 60,
-
                               child: Padding(
                                 padding: const EdgeInsets.all(12),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    SizedBox(width: 10,),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
                                     Text(
                                       "Package",
                                       style: TextStyle(
-                                        // decoration: TextDecoration.underline,
                                           fontSize: 16,
                                           color: Colors.grey.shade700),
                                     ),
-
-                                    SizedBox(width: 50,),
-                                    Icon(Icons.shopping_bag_outlined,color: kPrimaryColor,),
+                                    SizedBox(
+                                      width: 50,
+                                    ),
+                                    Icon(
+                                      Icons.shopping_bag_outlined,
+                                      color: kPrimaryColor,
+                                    ),
                                   ],
                                 ),
                               ),
                               decoration: BoxDecoration(
                                 color: kPrimaryLightColor,
                                 borderRadius: BorderRadius.circular(20),
-                                // backgroundBlendMode: BlendMode.lighten
-                                // border: Border.all(
-                                //   // color: kPrimaryColor
-                                // )
                               ),
                             ),
                             _buildPackageList(pkgType.text.toString()),
                           ],
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       Container(
                         width: double.infinity,
                         height: 50,
@@ -309,22 +311,23 @@ class UpdateScreen extends GetView<AdminController> {
                         ),
                         child: ElevatedButton(
                           onPressed: () async {
-                            String? token = await NotificationServices().getDeviceToken();
+                            String? token =
+                                await NotificationServices().getDeviceToken();
                             var userData = UserModel(
-                                id: id,
-                                email: email.text.trim(),
-                                phoneNo: phone.text.trim(),
-                                username: name.text.trim(),
-                                pkgStartDate: controller.state.selectedStartDate
-                                    .toString(),
-                                pkgEndDate:
-                                    controller.state.selectedEndDate.toString(),
-                                pkgType: controller.state.package.value == ""
-                                    ? pkgType.text
-                                    : controller.state.package.value,
-                                password: pass.text.trim(),
-                                address: add.text.trim(),
-                            deviceToken: token,
+                              id: id,
+                              email: email.text.trim(),
+                              phoneNo: phone.text.trim(),
+                              username: name.text.trim(),
+                              pkgStartDate:
+                                  controller.state.selectedStartDate.toString(),
+                              pkgEndDate:
+                                  controller.state.selectedEndDate.toString(),
+                              pkgType: controller.state.package.value == ""
+                                  ? pkgType.text
+                                  : controller.state.package.value,
+                              password: pass.text.trim(),
+                              address: add.text.trim(),
+                              deviceToken: token,
                             );
                             await controller.updateUser(userData);
                             // Get.to(() => AdminView());

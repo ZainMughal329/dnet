@@ -1,5 +1,4 @@
 import 'dart:async';
-// import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:d_net/Screens/UserScreens/homeScreen/state.dart';
@@ -17,24 +16,19 @@ class UserController extends GetxController {
   late Timer _timer;
   final state = UserState();
 
-
   void onInit() {
     super.onInit();
-    // Fetch startDateTime and endDateTime from Firestore using StreamBuilder
-
-
-
-
 
     FirebaseFirestore.instance
         .collection('users')
         .doc(auth.currentUser!.uid.toString())
         .snapshots()
         .listen((doc) {
-      state.startDateTime.value = DateTime.parse(doc['pkgStartDate'].toString());
-      state.endDateTime.value = DateTime.parse(doc['pkgEndDate'].toString()).add(Duration(days: 1));
+      state.startDateTime.value =
+          DateTime.parse(doc['pkgStartDate'].toString());
+      state.endDateTime.value =
+          DateTime.parse(doc['pkgEndDate'].toString()).add(Duration(days: 1));
 
-      // Calculate remaining days and update the observable value
       state.remainingDays.value = calculateRemainingDays(
           state.startDateTime.value, state.endDateTime.value);
     });
@@ -47,16 +41,14 @@ class UserController extends GetxController {
   }
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> getNodeData() {
-
     return FirebaseFirestore.instance
         .collection('users')
         .doc(auth.currentUser!.uid.toString())
         .snapshots();
-
   }
 
-  void setLoading(bool value){
-    state.loading.value=value;
+  void setLoading(bool value) {
+    state.loading.value = value;
   }
 
   void signOut() async {
@@ -77,61 +69,45 @@ class UserController extends GetxController {
   }
 
   int calculateRemainingDays(DateTime startDateTime, DateTime endDateTime) {
-    // Calculate the difference between endDateTime and startDateTime
     DateTime start = DateTime.now();
     Duration difference = endDateTime.difference(start);
 
-    // Get the number of remaining days from the difference
     int remainingDays = difference.inDays;
 
-    // Return the remaining days
     return remainingDays;
   }
 
-  void updateToken()async{
-   String? token =  await NotificationServices().getDeviceToken().then((value) {
-     print("INside update Token");
-     print(value.toString());
-     FirebaseFirestore.instance
-         .collection('users')
-         .doc(auth.currentUser!.uid.toString()).update({
-       'deviceToken' : value.toString(),
-     }).then((value){
-       print("Token Updated during HomeScreen");
-     }).onError((error, stackTrace){
-       print("Error on homeScreen Update");
-       Utils.showToast("HomeScreen token Error : " + error.toString());
-     });
-   });
-
-
-
-
-
+  void updateToken() async {
+    String? token = await NotificationServices().getDeviceToken().then((value) {
+      print("INside update Token");
+      print(value.toString());
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(auth.currentUser!.uid.toString())
+          .update({
+        'deviceToken': value.toString(),
+      }).then((value) {
+        print("Token Updated during HomeScreen");
+      }).onError((error, stackTrace) {
+        print("Error on homeScreen Update");
+        Utils.showToast("HomeScreen token Error : " + error.toString());
+      });
+    });
   }
 
-  void initializeNotification(context){
+  void initializeNotification(context) {
     NotificationServices().FirebaseInit(context);
   }
-  void initializeLocalNotification() async{
 
-    // await  FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(auth.currentUser!.uid.toString())
-    //     .snapshots()
-    //     .listen((doc) {
-    //   Timestamp timestamp = doc
-    //       .data()!['pkgEndDate'];
-    //    dateTime = timestamp.toDate();
-    // }
-    //   );
-
-
-    await FirebaseFirestore.instance.collection('users').doc(
-      auth.currentUser!.uid.toString()
-    ).get().then((documentSnapshot){
+  void initializeLocalNotification() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(auth.currentUser!.uid.toString())
+        .get()
+        .then((documentSnapshot) {
       if (documentSnapshot.exists) {
-        String timestamp = documentSnapshot.data()!['pkgEndDate']; // replace 'your_date_field' with your actual date field name
+        String timestamp = documentSnapshot.data()![
+            'pkgEndDate']; // replace 'your_date_field' with your actual date field name
         final format = DateFormat("yyyy-MM-dd HH:mm:ss.S");
 
         // Convert String to DateTime
@@ -148,12 +124,6 @@ class UserController extends GetxController {
       } else {
         print('Document does not exist on the database');
       }
-
     });
-
-
-
   }
-
 }
-

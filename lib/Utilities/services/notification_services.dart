@@ -1,13 +1,12 @@
 import 'dart:io';
-import 'dart:math';
-// import 'package:timezone/data/latest.dart' as tz;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:timezone/timezone.dart' as tz;
 
 import 'package:app_settings/app_settings.dart';
+// import 'package:timezone/data/latest.dart' as tz;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 class NotificationServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -92,14 +91,16 @@ class NotificationServices {
       String? body,
       String? payload,
       required DateTime sheduledTime}) async {
-
     await setNotificationDetails();
-    _flutterLocalNotificationsPlugin.zonedSchedule(id, title, body,
-       tz.TZDateTime.from(sheduledTime, tz.local),
-        notificationDetails!,
-        uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+    _flutterLocalNotificationsPlugin.zonedSchedule(
+      id,
+      title,
+      body,
+      tz.TZDateTime.from(sheduledTime, tz.local),
+      notificationDetails!,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
     );
-
   }
 
   Future<void> setNotificationDetails() async {
@@ -153,5 +154,4 @@ class NotificationServices {
       print('Error fetching data: $e');
     }
   }
-
 }

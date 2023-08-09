@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class MyForm extends StatefulWidget {
@@ -7,7 +6,6 @@ class MyForm extends StatefulWidget {
 }
 
 class _MyFormState extends State<MyForm> {
-  // Add your form fields' controllers here if needed
   final TextEditingController _myController = TextEditingController();
 
   @override
@@ -31,15 +29,14 @@ class _MyFormState extends State<MyForm> {
                   borderSide: BorderSide(color: Colors.blue, width: 2.0),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue.withOpacity(0.5), width: 1.0),
+                  borderSide: BorderSide(
+                      color: Colors.blue.withOpacity(0.5), width: 1.0),
                 ),
                 filled: true,
                 fillColor: Colors.blue.withOpacity(0.1),
               ),
             ),
             SizedBox(height: 20),
-            // Add more TextFormField widgets with different styles as needed
-            // For example, you can add email, password fields, etc.
           ],
         ),
       ),

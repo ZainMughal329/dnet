@@ -1,10 +1,7 @@
-import 'dart:async';
-
 // import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:d_net/Screens/admin/homeScreen/all_users.dart';
-
 // import 'package:d_net/Screens/admin/controller.dart';
 import 'package:d_net/Screens/admin/homeScreen/controller.dart';
 import 'package:d_net/Screens/admin/homeScreen/expired_users.dart';
@@ -15,8 +12,6 @@ import 'package:d_net/Screens/admin/homeScreen/update.dart';
 import 'package:d_net/Utilities/ReusableComponents/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../Utilities/ReusableComponents/tab_bar_settings.dart';
 
 class AdminView extends GetView<AdminController> {
   AdminView({Key? key}) : super(key: key);
@@ -70,19 +65,10 @@ class AdminView extends GetView<AdminController> {
           () => controller.state.isSearchBarOpen.value
               ? GetBuilder<AdminController>(builder: (con) {
                   return TextField(
-                    // controller: controller.state.searchController.value,
                     onChanged: (value) {
                       con.search(value);
-                      // print('value is :' +
-                      //     controller.state.searchController.value.text
-                      //         .toString());
                     },
                     decoration: InputDecoration(
-                      // prefixIcon: InkWell(
-                      //   onTap: () {
-                      //     controller.state.isSearchBarOpen.toggle();
-                      //   },
-                      //   child: Icon(Icons.arrow_back),
                       // ),
                       hintText: 'Search...',
                       border: InputBorder.none,
@@ -121,27 +107,13 @@ class AdminView extends GetView<AdminController> {
         ),
         actions: [
           Obx(() {
-            return
-                // controller.state.isSearchBarOpen.value ? Container() :
-                IconButton(
+            return IconButton(
               onPressed: () {
                 controller.state.isSearchBarOpen.toggle();
-                // Toggle the search bar state
               },
               icon: Icon(controller.state.isSearchBarOpen.value == true
                   ? Icons.close
                   : Icons.search),
-              // icon: controller.state.isSearchBarOpen.value == true
-              //     ? IconButton(
-              //         onPressed: () {
-              //           controller.filteredDataList.clear();
-              //           controller.data.clear();
-              //         },
-              //         icon: Icon(Icons.close))
-              //     : IconButton(
-              //         onPressed: () {},
-              //         icon: Icon(Icons.search),
-              //       ),
             );
           }),
           Obx(() => controller.state.isSearchBarOpen.value
@@ -159,28 +131,6 @@ class AdminView extends GetView<AdminController> {
           ),
         ],
       ),
-
-      // appBar: AppBar(
-      //   title: Obx(() => controller.state.isSearchBarOpen.value
-      //       ? TextField(
-      //     onChanged: (value) {
-      //       // Handle search query here
-      //       // You can use this value to filter your data accordingly
-      //     },
-      //     decoration: InputDecoration(hintText: 'Search...'),
-      //   )
-      //       : Text('All Users')), // Regular app title when not searching
-      //   actions: [
-      //     // Step 1: Add an icon to trigger the search bar
-      //     IconButton(
-      //       onPressed: () {
-      //         controller.state.isSearchBarOpen.toggle(); // Toggle the search bar state
-      //       },
-      //       icon: Icon(controller.state.isSearchBarOpen.value ? Icons.close : Icons.search),
-      //     ),
-      //   ],
-      // ),
-
       body: Obx(() => controller.state.isSearchBarOpen.value
           ? ListView.builder(
               itemCount: controller.filteredDataList.length,

@@ -2,22 +2,16 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:d_net/Screens/admin/homeScreen/state.dart';
-import 'package:http/http.dart' as http;
-
 // import 'package:d_net/Screens/admin/state.dart';
 import 'package:d_net/Utilities/Routes/routesNames.dart';
 import 'package:d_net/Utilities/models/userModel.dart';
 import 'package:d_net/Utilities/services/shared_pref_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../Utilities/ReusableComponents/utilis.dart';
-
-// import '../../Utilities/ReusableComponents/utilis.dart';
-// import '../../Utilities/Routes/routesNames.dart';
 
 class AdminController extends GetxController with GetTickerProviderStateMixin {
   late TabController tabController;
@@ -27,7 +21,6 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
     super.onInit();
     tabController = TabController(length: 5, vsync: this);
     fetchData();
-    // calculateRemainingDays();
   }
 
   @override
@@ -54,47 +47,25 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
       print('Snapshot is : ' + snapshot.toString());
       data.assignAll(snapshot.docs);
     } catch (e) {
-      // Handle any errors that might occur during data retrieval.
       print('Error fetching data: $e');
     }
   }
 
   void search(String query) {
     print('Inside search');
-    // Perform the search and update the data list.
-    // if (query.isEmpty) {
-    //   print('inside search if');
-    //   Center(child: Text('data'));
-    // } else {
-    //   print('inside search else');
-    //   var filteredData = data.where((snapshot) {
-    //     // Customize this condition based on your Firestore document structure and search requirements.
-    //     print('object11');
-    //     String name = snapshot['Email'].toString().toLowerCase();
-    //     print('Name is : ' + name.toString());
-    //     print('Contains :' + name.contains(query.toLowerCase()).toString());
-    //     return name.contains(query.toLowerCase());
-    //   }).toList();
-    //   filteredDataList.assignAll(filteredData);
-    //   print('Filter list is : ' + filteredDataList.toString());
-    // }
-    // update();
     List<DocumentSnapshot> results = [];
-    if(query.isEmpty) {
+    if (query.isEmpty) {
       results = data;
-    }else {
-      results = data.where((ele) => ele['UserName'].toString().toLowerCase().contains(query.toLowerCase())).toList();
+    } else {
+      results = data
+          .where((ele) => ele['UserName']
+              .toString()
+              .toLowerCase()
+              .contains(query.toLowerCase()))
+          .toList();
     }
     filteredDataList.value = results;
   }
-
-  // void startSearch() {
-  //   state.isSearching.value = true;
-  // }
-  //
-  // void stopSearch() {
-  //   state.isSearching.value = false;
-  // }
 
   setLogoutLoading(value) {
     state.logoutLoading.value = value;
@@ -113,13 +84,6 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
         Utils.showToast(error.toString());
         Get.offNamed(RoutesNames.loginScreen);
       });
-      // await auth.signOut().then((value) {
-      //
-      //   Utils.showToast("Signed Out Successfully");
-      //   Get.offAllNamed(RoutesNames.loginScreen);
-      // }).onError((error, stackTrace) {
-      //   Utils.showToast("Error Occurred :" + error.toString());
-      // });
     } catch (e) {
       setLogoutLoading(false);
       Utils.showToast("Error Occurred : " + e.toString());
@@ -136,14 +100,11 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
           DateTime.parse(doc['pkgStartDate'].toString());
       state.endDateTime.value = DateTime.parse(doc['pkgEndDate'].toString());
     });
-    // Calculate the difference between endDateTime and startDateTime
     Duration difference =
         state.endDateTime.value.difference(state.startDateTime.value);
 
-    // Get the number of remaining days from the difference
     int remainingDays = difference.inDays;
 
-    // Return the remaining days
     return remainingDays;
   }
 
@@ -224,19 +185,19 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
       await sendToAll();
       setNotificationLoading(false);
     }
-    if(users == "expired"){
+    if (users == "expired") {
       await sendToExpired();
       setNotificationLoading(false);
     }
-    if(users == "1"){
+    if (users == "1") {
       await sendTo1dayLeft();
       setNotificationLoading(false);
     }
-    if(users == "2"){
+    if (users == "2") {
       await sendTo2dayLeft();
       setNotificationLoading(false);
     }
-    if(users == "3"){
+    if (users == "3") {
       await sendTo3dayLeft();
       setNotificationLoading(false);
     }
@@ -251,45 +212,35 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
     }
   }
 
-
-
-
   Future<void> sendToExpired() async {
     final _querySnapshot = await state.db.get();
-    for(var doc in _querySnapshot.docs){
+    for (var doc in _querySnapshot.docs) {
       String userToken = doc.data()['deviceToken'];
       DateTime start = DateTime.now();
-      DateTime end = DateTime.parse(doc.data()['pkgEndDate']
-          .toString())
+      DateTime end = DateTime.parse(doc.data()['pkgEndDate'].toString())
           .add(Duration(days: 1));
 
       Duration difference = end.difference(start);
 
       int remaining = difference.inDays;
-      // print('Index : ' + doc.i.toString());
-      // print('Remaining are : ' + remaining.toString());
-      if(remaining==0){
+      if (remaining == 0) {
         sendMessage(userToken);
       }
     }
   }
 
-
   Future<void> sendTo1dayLeft() async {
     final _querySnapshot = await state.db.get();
-    for(var doc in _querySnapshot.docs){
+    for (var doc in _querySnapshot.docs) {
       String userToken = doc.data()['deviceToken'];
       DateTime start = DateTime.now();
-      DateTime end = DateTime.parse(doc.data()['pkgEndDate']
-          .toString())
+      DateTime end = DateTime.parse(doc.data()['pkgEndDate'].toString())
           .add(Duration(days: 1));
 
       Duration difference = end.difference(start);
 
       int remaining = difference.inDays;
-      // print('Index : ' + doc.i.toString());
-      // print('Remaining are : ' + remaining.toString());
-      if(remaining==1){
+      if (remaining == 1) {
         sendMessage(userToken);
       }
     }
@@ -297,19 +248,16 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> sendTo2dayLeft() async {
     final _querySnapshot = await state.db.get();
-    for(var doc in _querySnapshot.docs){
+    for (var doc in _querySnapshot.docs) {
       String userToken = doc.data()['deviceToken'];
       DateTime start = DateTime.now();
-      DateTime end = DateTime.parse(doc.data()['pkgEndDate']
-          .toString())
+      DateTime end = DateTime.parse(doc.data()['pkgEndDate'].toString())
           .add(Duration(days: 1));
 
       Duration difference = end.difference(start);
 
       int remaining = difference.inDays;
-      // print('Index : ' + doc.i.toString());
-      // print('Remaining are : ' + remaining.toString());
-      if(remaining==2){
+      if (remaining == 2) {
         sendMessage(userToken);
       }
     }
@@ -317,31 +265,22 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
 
   Future<void> sendTo3dayLeft() async {
     final _querySnapshot = await state.db.get();
-    for(var doc in _querySnapshot.docs){
+    for (var doc in _querySnapshot.docs) {
       String userToken = doc.data()['deviceToken'];
       DateTime start = DateTime.now();
-      DateTime end = DateTime.parse(doc.data()['pkgEndDate']
-          .toString())
+      DateTime end = DateTime.parse(doc.data()['pkgEndDate'].toString())
           .add(Duration(days: 1));
 
       Duration difference = end.difference(start);
 
       int remaining = difference.inDays;
-      // print('Index : ' + doc.i.toString());
-      // print('Remaining are : ' + remaining.toString());
-      if(remaining==3){
+      if (remaining == 3) {
         sendMessage(userToken);
       }
     }
   }
 
-
-
-
-
-
-
-  Future<void> sendMessage(String userToken) async  {
+  Future<void> sendMessage(String userToken) async {
     var data = {
       'to': userToken,
       'priority': 'high',

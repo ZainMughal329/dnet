@@ -18,13 +18,6 @@ class UserView extends GetView<UserController> {
       appBar: AppBar(
         title: Text("Dubai Sky Net's User"),
         backgroundColor: kPrimaryColor,
-        // actions: [
-        //   IconButton(
-        //       onPressed: () {
-        //         controller.signOut();
-        //       },
-        //       icon: Icon(Icons.logout))
-        // ],
       ),
       body: SingleChildScrollView(
         child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
@@ -36,14 +29,12 @@ class UserView extends GetView<UserController> {
                 child: CircularProgressIndicator(),
               );
             }
-            // DateTime startDate = snapshot.data!['pkgStartDate'];
 
             return Container(
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
                   Container(
-                    // height: 300,
                     child: Icon(
                       Icons.person_2,
                       size: 200,
@@ -51,7 +42,6 @@ class UserView extends GetView<UserController> {
                     ),
                   ),
                   Container(
-                    // height: 500,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: kPrimaryMediumColor,
@@ -224,23 +214,29 @@ class UserView extends GetView<UserController> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
-                          // child: Divider(color: Colors.grey, height: 5),
                         ),
                         // Divider(color: Colors.grey,),
                       ],
                     ),
                   ),
-                  SizedBox(height: 16.0,),
+                  SizedBox(
+                    height: 16.0,
+                  ),
                   Hero(
                     tag: "logout_btn",
                     child: ElevatedButton(
                       onPressed: () {
                         controller.signOut();
                       },
-                      child: controller.state.loading.value ? Center(child: CircularProgressIndicator(color: kPrimaryColor,),)
-                      : Text(
-                        "Logout".toUpperCase(),
-                      ),
+                      child: controller.state.loading.value
+                          ? Center(
+                              child: CircularProgressIndicator(
+                                color: kPrimaryColor,
+                              ),
+                            )
+                          : Text(
+                              "Logout".toUpperCase(),
+                            ),
                     ),
                   ),
                 ],

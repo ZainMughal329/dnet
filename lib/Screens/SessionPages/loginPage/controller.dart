@@ -15,7 +15,7 @@ class loginController extends GetxController {
   final auth = FirebaseAuth.instance;
   final dbref = FirebaseFirestore.instance.collection('user');
 
-  void setLoading(bool value){
+  void setLoading(bool value) {
     state.loading.value = value;
   }
 
@@ -26,21 +26,16 @@ class loginController extends GetxController {
       await auth
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) {
-
-
-
         setLoading(false);
         Utils.showToast("Login Successfully");
         Get.offAllNamed(RoutesNames.userScreen);
       }).onError((error, stackTrace) {
         setLoading(false);
         Utils.showToast(error.toString());
-
       });
     } catch (e) {
       setLoading(false);
       Utils.showToast(e.toString());
-
     }
   }
 }

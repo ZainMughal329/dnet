@@ -102,20 +102,22 @@ class TwoDays extends GetView<AdminController> {
                 }
                 return Text('');
               }),
-          Obx((){
+          Obx(() {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ElevatedButton(onPressed: (){
-                controller.sendNotification('2');
-
-              }, child: Container(
-                child: Center(
-                  child:  controller.state.notificationLoading == true ?
-                  CircularProgressIndicator(color: Colors.white,) :
-                  Text("Send Notification"),
-
-                ),
-              )),
+              child: ElevatedButton(
+                  onPressed: () {
+                    controller.sendNotification('2');
+                  },
+                  child: Container(
+                    child: Center(
+                      child: controller.state.notificationLoading == true
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text("Send Notification"),
+                    ),
+                  )),
             );
           })
         ],

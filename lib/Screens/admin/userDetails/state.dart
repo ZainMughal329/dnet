@@ -1,3 +1,1 @@
-class userDetailsState {
-
-}
+class userDetailsState {}

@@ -28,8 +28,9 @@ class OneDay extends GetView<AdminController> {
                           print('object');
                           DateTime start = DateTime.now();
                           DateTime end = DateTime.parse(snapshot
-                              .data!.docs[index]['pkgEndDate']
-                              .toString()).add(Duration(days: 1));
+                                  .data!.docs[index]['pkgEndDate']
+                                  .toString())
+                              .add(Duration(days: 1));
 
                           Duration difference = end.difference(start);
 
@@ -51,7 +52,7 @@ class OneDay extends GetView<AdminController> {
                                     )),
                                 trailing: Column(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Icon(
                                       Icons.speed,
@@ -60,7 +61,7 @@ class OneDay extends GetView<AdminController> {
                                     ),
                                     Text(
                                       snapshot.data!.docs[index]['pkgType']
-                                          .toString() +
+                                              .toString() +
                                           " MB/s",
                                       style: TextStyle(
                                           color: Colors.white,
@@ -70,7 +71,7 @@ class OneDay extends GetView<AdminController> {
                                 ),
                                 title: Text(
                                   (snapshot.data!.docs[index]['UserName']
-                                      .toString())
+                                          .toString())
                                       .capitalizeFirst
                                       .toString(),
                                   style: TextStyle(
@@ -79,7 +80,7 @@ class OneDay extends GetView<AdminController> {
                                 ),
                                 subtitle: Text(
                                   (snapshot.data!.docs[index]['address']
-                                      .toString())
+                                          .toString())
                                       .toUpperCase(),
                                   style: TextStyle(
                                       color: Colors.white,
@@ -101,20 +102,22 @@ class OneDay extends GetView<AdminController> {
                 }
                 return Text('');
               }),
-          Obx((){
+          Obx(() {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: ElevatedButton(onPressed: (){
-                controller.sendNotification('1');
-
-              }, child: Container(
-                child: Center(
-                  child:  controller.state.notificationLoading == true ?
-                  CircularProgressIndicator(color: Colors.white,) :
-                  Text("Send Notification"),
-
-                ),
-              )),
+              child: ElevatedButton(
+                  onPressed: () {
+                    controller.sendNotification('1');
+                  },
+                  child: Container(
+                    child: Center(
+                      child: controller.state.notificationLoading == true
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text("Send Notification"),
+                    ),
+                  )),
             );
           })
         ],
