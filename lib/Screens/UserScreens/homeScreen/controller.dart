@@ -100,30 +100,34 @@ class UserController extends GetxController {
   }
 
   void initializeLocalNotification() async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(auth.currentUser!.uid.toString())
-        .get()
-        .then((documentSnapshot) {
-      if (documentSnapshot.exists) {
-        String timestamp = documentSnapshot.data()![
-            'pkgEndDate']; // replace 'your_date_field' with your actual date field name
-        final format = DateFormat("yyyy-MM-dd HH:mm:ss.S");
+    try{
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(auth.currentUser!.uid.toString())
+          .get()
+          .then((documentSnapshot) {
+        if (documentSnapshot.exists) {
+          String timestamp = documentSnapshot.data()![
+          'pkgEndDate']; // replace 'your_date_field' with your actual date field name
+          final format = DateFormat("yyyy-MM-dd HH:mm:ss.S");
 
-        // Convert String to DateTime
-        DateTime dateTime = format.parse(timestamp);
-        DateTime newDateTime = dateTime.subtract(Duration(days: 1));
-        print('Date and Time: $dateTime');
+          // Convert String to DateTime
+          DateTime dateTime = format.parse(timestamp);
+          DateTime newDateTime = dateTime.subtract(Duration(days: 1));
+          print('Date and Time: $dateTime');
 
-        print('Date and Time: $newDateTime');
-        NotificationServices().showSheduleNotification(
-          title: "Dubai Sky Net",
-          body: "Pay Your Bill to enjoy LimitLess \nInternet Connectivity",
-          sheduledTime: newDateTime,
-        );
-      } else {
-        print('Document does not exist on the database');
-      }
-    });
+          print('Date and Time: $newDateTime');
+          NotificationServices().showSheduleNotification(
+            title: "Dubai Sky Net",
+            body: "Pay Your Bill to enjoy LimitLess \nInternet Connectivity",
+            sheduledTime: newDateTime,
+          );
+        } else {
+          print('Document does not exist on the database');
+        }
+      });
+    }catch(e){
+
+    }
   }
 }
