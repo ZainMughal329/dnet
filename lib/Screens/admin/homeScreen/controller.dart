@@ -178,6 +178,7 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
   deleteUser(String id) async {
     print('id is : ' + id.toString());
     await _db.doc(id).delete();
+    fetchData();
   }
 
   setNotificationLoading(value) {
