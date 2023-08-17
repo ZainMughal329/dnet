@@ -109,7 +109,7 @@ class SignUpForm extends GetView<SignInController> {
             child: TextFormField(
               controller: controller.state.passController,
               textInputAction: TextInputAction.next,
-              obscureText: true,
+              obscureText: false,
               cursorColor: kPrimaryColor,
               decoration: InputDecoration(
                 hintText: "Your password",
