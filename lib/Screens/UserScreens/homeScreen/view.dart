@@ -222,23 +222,7 @@ class UserView extends GetView<UserController> {
                   SizedBox(
                     height: 16.0,
                   ),
-                  Hero(
-                    tag: "logout_btn",
-                    child: ElevatedButton(
-                      onPressed: () {
-                        controller.signOut();
-                      },
-                      child: controller.state.loading.value
-                          ? Center(
-                              child: CircularProgressIndicator(
-                                color: kPrimaryColor,
-                              ),
-                            )
-                          : Text(
-                              "Logout".toUpperCase(),
-                            ),
-                    ),
-                  ),
+
                 ],
               ),
             );

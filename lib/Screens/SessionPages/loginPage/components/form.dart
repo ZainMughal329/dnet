@@ -33,22 +33,32 @@ class LoginForm extends GetView<loginController> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: defaultPadding),
-            child: TextFormField(
-              controller: controller.state.passController,
-              textInputAction: TextInputAction.done,
-              obscureText: true,
-              cursorColor: kPrimaryColor,
-              decoration: InputDecoration(
-                hintText: "Your password",
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.lock),
+          Obx((){
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+              child: TextFormField(
+                controller: controller.state.passController,
+                textInputAction: TextInputAction.done,
+                obscureText: controller.state.hiddenText.value,
+                cursorColor: kPrimaryColor,
+                decoration: InputDecoration(
+                  hintText: "Your password",
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.all(defaultPadding),
+                    child: InkWell(
+                        onTap: (){
+                          controller.state.hiddenText.value = !controller.state.hiddenText.value;
+                        },
+                        child: controller.state.hiddenText.value ? Icon(Icons.visibility_off): Icon(Icons.visibility)),
+                  ),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(defaultPadding),
+                    child: Icon(Icons.lock),
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          }),
           const SizedBox(height: defaultPadding),
           Hero(
             tag: "login_btn",
