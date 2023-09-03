@@ -18,6 +18,11 @@ class AdminState {
     Duration(days: 30),
   );
 
+  List<String> recipients1 = [];
+  List<String> recipients2 = [];
+  List<String> recipients3 = [];
+  List<String> recipientsExp = [];
+
   final package = "".obs;
   RxBool loading = false.obs;
   RxBool logoutLoading = false.obs;

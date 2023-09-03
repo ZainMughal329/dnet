@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:d_net/Screens/admin/homeScreen/controller.dart';
+import 'package:d_net/Utilities/services/message_services.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 
 import '../../../Utilities/ReusableComponents/constants.dart';
@@ -25,7 +27,8 @@ class OneDay extends GetView<AdminController> {
                     child: ListView.builder(
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
-                          print('object');
+                          // print('object');
+
                           DateTime start = DateTime.now();
                           DateTime end = DateTime.parse(snapshot
                                   .data!.docs[index]['pkgEndDate']
@@ -39,6 +42,9 @@ class OneDay extends GetView<AdminController> {
                           print('Remaining are : ' + remaining.toString());
 
                           if (remaining == 1) {
+                            controller.state.recipients1.add(snapshot.data!.docs[index]['Phone']);
+                            print(index.toString());
+                            print(controller.state.recipients1);
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 2, vertical: 1),
@@ -107,7 +113,9 @@ class OneDay extends GetView<AdminController> {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: ElevatedButton(
                   onPressed: () {
-                    controller.sendNotification('1');
+                    MessagesService().sendMessage(controller.state.recipients1);
+
+                    // controller.sendNotification('1');
                   },
                   child: Container(
                     child: Center(

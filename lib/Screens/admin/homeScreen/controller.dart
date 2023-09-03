@@ -30,10 +30,10 @@ class AdminController extends GetxController with GetTickerProviderStateMixin {
     print('object');
   }
 
-  final state = AdminState();
+
 
   AdminController();
-
+  final state = AdminState();
   final auth = FirebaseAuth.instance;
   final _db = FirebaseFirestore.instance.collection('users');
 
