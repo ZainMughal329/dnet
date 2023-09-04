@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:d_net/Screens/admin/homeScreen/controller.dart';
+import 'package:d_net/Utilities/services/message_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,7 @@ class ThreeDays extends GetView<AdminController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.state.recipients3.clear();
     return Scaffold(
       body: SafeArea(
           child: Column(
@@ -39,6 +41,7 @@ class ThreeDays extends GetView<AdminController> {
                           print('Remaining are : ' + remaining.toString());
 
                           if (remaining == 3) {
+                            controller.state.recipients3.add(snapshot.data!.docs[index]['Phone']);
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 2, vertical: 1),
@@ -107,7 +110,10 @@ class ThreeDays extends GetView<AdminController> {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: ElevatedButton(
                   onPressed: () {
-                    controller.sendNotification('3');
+                    controller.state.notificationLoading.value=true;
+                    MessagesService().sendMessage(controller.state.recipients3);
+                    controller.state.notificationLoading.value=false;
+                    // controller.sendNotification('3');
                   },
                   child: Container(
                     child: Center(

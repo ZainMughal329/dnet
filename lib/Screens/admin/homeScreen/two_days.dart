@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:d_net/Screens/admin/homeScreen/controller.dart';
+import 'package:d_net/Utilities/services/message_services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,7 @@ class TwoDays extends GetView<AdminController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.state.recipients2.clear();
     return Scaffold(
       body: SafeArea(
           child: Column(
@@ -39,6 +41,7 @@ class TwoDays extends GetView<AdminController> {
                           print('Remaining are : ' + remaining.toString());
 
                           if (remaining == 2) {
+                            controller.state.recipients2.add(snapshot.data!.docs[index]['Phone']);
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 2, vertical: 1),
@@ -107,7 +110,10 @@ class TwoDays extends GetView<AdminController> {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: ElevatedButton(
                   onPressed: () {
-                    controller.sendNotification('2');
+                    controller.state.notificationLoading.value=true;
+                    MessagesService().sendMessage(controller.state.recipients2);
+                    controller.state.notificationLoading.value=false;
+                    // controller.sendNotification('2');
                   },
                   child: Container(
                     child: Center(

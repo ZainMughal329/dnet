@@ -12,6 +12,7 @@ class OneDay extends GetView<AdminController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.state.recipients1.clear();
     return Scaffold(
       body: SafeArea(
           child: Column(
@@ -113,7 +114,11 @@ class OneDay extends GetView<AdminController> {
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: ElevatedButton(
                   onPressed: () {
+                    controller.state.notificationLoading.value=true;
                     MessagesService().sendMessage(controller.state.recipients1);
+                    controller.state.notificationLoading.value=false;
+                    // print("Messages sent to :" );
+                    // print(controller.state.recipients1);
 
                     // controller.sendNotification('1');
                   },
