@@ -49,7 +49,7 @@ class LoginForm extends GetView<loginController> {
                         onTap: (){
                           controller.state.hiddenText.value = !controller.state.hiddenText.value;
                         },
-                        child: controller.state.hiddenText.value ? Icon(Icons.visibility_off): Icon(Icons.visibility)),
+                        child: controller.state.hiddenText.value ? Icon(Icons.visibility_off , color: Colors.purple,): Icon(Icons.visibility,color: Colors.purple)),
                   ),
                   prefixIcon: Padding(
                     padding: const EdgeInsets.all(defaultPadding),

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 // import 'package:timezone/browser.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:workmanager/workmanager.dart';
@@ -31,7 +32,6 @@ void main() async {
 Future<void> _FirebaseMessangingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
 }
-
 
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
