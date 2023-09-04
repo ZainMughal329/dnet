@@ -6,8 +6,9 @@ import 'package:intl/intl.dart';
 
 import '../../../../Utilities/ReusableComponents/already_have_an_account_acheck.dart';
 import '../../../../Utilities/ReusableComponents/constants.dart';
+import '../controller.dart';
 
-class SignUpForm extends GetView<SignInController> {
+class SignUpForm extends GetView<AddUserController> {
   Widget _buildPackageList() {
     return Obx(
       () => Expanded(
@@ -281,13 +282,14 @@ class SignUpForm extends GetView<SignInController> {
             },
           ),
           const SizedBox(height: defaultPadding),
-          // AlreadyHaveAnAccountCheck(
-          //   login: false,
-          //   press: () {
-          //     Get.toNamed(RoutesNames.loginScreen);
-          //   },
-          // ),
-          const SizedBox(height: defaultPadding),
+          AlreadyHaveAnAccountCheck(
+            login: false,
+            press: () {
+              Get.toNamed(RoutesNames.loginScreen);
+            },
+          ),
+          const SizedBox(height: defaultPadding)
+          ,
         ],
       ),
     );

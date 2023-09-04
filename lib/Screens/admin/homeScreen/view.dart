@@ -1,6 +1,7 @@
 // import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:d_net/Screens/SessionPages/signUpPage/view.dart';
 import 'package:d_net/Screens/admin/homeScreen/all_users.dart';
 // import 'package:d_net/Screens/admin/controller.dart';
 import 'package:d_net/Screens/admin/homeScreen/controller.dart';
@@ -10,6 +11,7 @@ import 'package:d_net/Screens/admin/homeScreen/three_day.dart';
 import 'package:d_net/Screens/admin/homeScreen/two_days.dart';
 import 'package:d_net/Screens/admin/homeScreen/update.dart';
 import 'package:d_net/Utilities/ReusableComponents/constants.dart';
+import 'package:d_net/Utilities/Routes/routesNames.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -82,7 +84,7 @@ class AdminView extends GetView<AdminController> {
                         "Dubai Sky Net",
                         speed: Duration(milliseconds: 550),
                         textStyle: TextStyle(
-                          fontSize: 32.0,
+                          fontSize: 30.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
@@ -116,16 +118,22 @@ class AdminView extends GetView<AdminController> {
                   : Icons.search),
             );
           }),
-          Obx(() => controller.state.isSearchBarOpen.value
-              ? Container()
-              : IconButton(
-                  onPressed: () {
-                    _showLogoutDialogue(context);
-                  },
-                  icon: Icon(
-                    Icons.power_settings_new,
-                    size: 30,
-                  ))),
+          // Obx(() => controller.state.isSearchBarOpen.value
+          //     ? Container()
+          //     : IconButton(
+          //         onPressed: () {
+          //           _showLogoutDialogue(context);
+          //         },
+          //         icon: Icon(
+          //           Icons.power_settings_new,
+          //           size: 30,
+          //         ))),
+          IconButton(
+            onPressed: (){
+              Get.toNamed(RoutesNames.signUpScreen);
+
+            },
+            icon: Icon(Icons.add),),
           SizedBox(
             width: 5,
           ),

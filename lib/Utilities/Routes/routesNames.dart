@@ -5,5 +5,6 @@ class RoutesNames {
   static const welcomeScreen = "/welcomeScreen";
   static const adminScreen = "/adminScreen";
   static const userScreen = "/userScreen";
+  static const addUserScreen = "/addUserScreen";
   static const userDetailScreen = "/userDetailScreen";
 }

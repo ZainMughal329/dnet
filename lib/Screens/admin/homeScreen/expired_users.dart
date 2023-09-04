@@ -39,7 +39,7 @@ class ExpiredUsers extends GetView<AdminController> {
                           print('Index : ' + index.toString());
                           print('Remaining are : ' + remaining.toString());
 
-                          if (remaining == 0) {
+                          if (remaining <= 0) {
                             controller.state.recipientsExp.add(snapshot.data!.docs[index]['Phone']);
                             return Padding(
                               padding: const EdgeInsets.symmetric(

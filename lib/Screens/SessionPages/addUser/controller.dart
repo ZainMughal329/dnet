@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:d_net/Screens/SessionPages/addUser/state.dart';
+import 'package:d_net/Screens/SessionPages/addUser/view.dart';
 import 'package:d_net/Screens/SessionPages/signUpPage/state.dart';
 import 'package:d_net/Utilities/ReusableComponents/utilis.dart';
 import 'package:d_net/Utilities/Routes/routesNames.dart';
@@ -8,20 +10,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignInController extends GetxController {
-  final state = SignState();
+class AddUserController extends GetxController {
+  final state = AddUserState();
 
-  SignInController();
-
-  void disposeControllers(){
-    state.nameController.clear();
-    state.emailController.clear();
-    state.passController.clear();
-    state.addressController.clear();
-    state.phoneController.clear();
-    state.startDateController.clear();
-    state.endDateController.clear();
-  }
+  AddUserController();
 
   final auth = FirebaseAuth.instance;
   final ref = FirebaseFirestore.instance;
@@ -55,8 +47,7 @@ class SignInController extends GetxController {
               ).toJson(),
             );
         Utils.showToast('Account Created');
-        // Get.offAllNamed(RoutesNames.adminScreen);
-        disposeControllers();
+        Get.offAllNamed(RoutesNames.userScreen);
       }).onError((error, stackTrace) {
         setLoading(false);
         Utils.showToast('Error Occurred :' + error.toString());
@@ -98,5 +89,4 @@ class SignInController extends GetxController {
       print('Null or something else');
     }
   }
-
 }
